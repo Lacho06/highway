@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PlanController;
+use App\Http\Controllers\PostController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,22 +17,24 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-})->name('index');
+Route::get('/', [CategoryController::class, 'viewIndex'])->name('index');
 
-Route::get('about', function(){
-    return view('pages.about');
-})->name('about');
+Route::get('about', [PlanController::class, 'viewAbout'])->name('about');
 
-Route::get('blog', function(){
-    return view('pages.blog');
-})->name('blog');
+Route::get('blog', [PostController::class, 'viewBlog'])->name('blog');
 
-Route::get('single-post', function(){
-    return view('pages.single-post');
-})->name('single-post');
+Route::get('single-post/{id}', [PostController::class, 'viewSinglePost'])->name('single-post');
+
+Route::get('admin', [AdminController::class, 'index'])->middleware('auth')->name('admin.index');
+
+Route::post('admin/category/image', [CategoryController::class, 'addImage'])->name('category.addImage');
+
+Route::delete('admin/category/image/{image}', [CategoryController::class, 'deleteImage'])->name('category.deleteImage');
+
+Route::resource('admin/category', CategoryController::class)->names('category');
+
+Route::resource('admin/post', PostController::class)->names('post');
+
+Route::resource('admin/plan', PlanController::class)->names('plan');
 
 Auth::routes();
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');

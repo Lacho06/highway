@@ -30,3 +30,5 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
 });
+// TODO: pendiente ejecutar npm run dev para no tener q usar el cdn
+window.Swal = require('sweetalert2');

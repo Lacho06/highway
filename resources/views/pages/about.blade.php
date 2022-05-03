@@ -137,54 +137,24 @@ https://templatemo.com/tm-520-highway
 
     <div class="pricing-tables">
         <div class="container">
-            <div class="col-md-4 col-sm-6">
-                <div class="table-item">
-                    <h4>$250/mo</h4>
-                    <span>Starter Plan</span>
-                    <ul>
-                    	<li>Xeon 8 Cores 3.2GHz</li>
-                        <li>RAM 32 GB</li>
-                        <li>10 TB RAID 1</li>
-                        <li>1,000 TB Transfer</li>
-                        <li>24-hour Support</li>
-                    </ul>
-                    <div class="simple-btn">
-                        <a href="#">Details</a>
+            @foreach ($plans as $plan)
+
+                <div class="col-md-4 col-sm-6">
+                    <div class="table-item">
+                        <h4>${{$plan->price}}</h4>
+                        <span>{{$plan->name}}</span>
+                        <ul>
+                            @foreach ($plan->features as $feature)
+                                <li>{{$feature->name}}</li>
+                            @endforeach
+                        </ul>
+                        <div class="simple-btn">
+                            <a href="#">Details</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="table-item premium-item">
-                    <h4>$420/mo</h4>
-                    <span>Standard Plan</span>
-                    <ul>
-                        <li>Xeon 16 Cores 3.2GHz</li>
-                        <li>RAM 64 GB</li>
-                        <li>20 TB RAID 1</li>
-                        <li>2,000 TB Transfer</li>
-                        <li>15-minute Quick Support</li>
-                    </ul>
-                    <div class="simple-btn">
-                        <a href="#">Details</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="table-item">
-                    <h4>$750/mo</h4>
-                    <span>Premium Plan</span>
-                    <ul>
-                        <li>Xeon 32 Cores 3.2GHz</li>
-                        <li>RAM 128 GB</li>
-                        <li>10 TB SSD RAID 10</li>
-                        <li>6,000 TB Transfer</li>
-                        <li>1-minute Instant Support</li>
-                    </ul>
-                    <div class="simple-btn">
-                        <a href="#">Details</a>
-                    </div>
-                </div>
-            </div>
+
+            @endforeach
         </div>
     </div>
 
@@ -268,9 +238,9 @@ https://templatemo.com/tm-520-highway
                   <li>
                       <a href="{{route('blog')}}">Blog Entries</a>
                   </li>
-                  <li>
+                  {{-- <li>
                       <a href="#">Single Post</a>
-                  </li>
+                  </li> --}}
               </ul>
               <p>We create awesome templates for you</p>
           </div>
