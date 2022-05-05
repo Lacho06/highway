@@ -10,7 +10,7 @@ class Feature extends Model
 {
     use HasFactory;
 
-
+    protected $fillable = ['name', 'plan_id'];
 
     public function plan(){
         return $this->belongsTo(Plan::class);

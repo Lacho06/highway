@@ -13,7 +13,6 @@
         </div>
         <div class="card-body">
             {!! Form::model($category, ['route' => ['category.update', $category], 'method' => 'put', 'files' => true, 'class' => '']) !!}
-
                 <x-adminlte-input name="title" enable-old-support value="{{$category->title}}" placeholder="Title" />
                 <x-adminlte-input name="subtitle" enable-old-support value="{{$category->subtitle}}" placeholder="Subtitle" />
                 <div class="d-flex justify-content-between">

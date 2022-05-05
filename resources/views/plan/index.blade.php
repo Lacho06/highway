@@ -26,7 +26,7 @@
                         <a href="{{route('plan.edit', $plan)}}" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
                             <i class="fa fa-lg fa-fw fa-pen"></i>
                         </a>
-                        <form action="{{route('plan.destroy', $plan)}}" method="post" class="d-inline">
+                        <form action="{{route('plan.destroy', $plan)}}" method="post" class="d-inline form-delete">
                             @csrf @method("DELETE")
                             <button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" id="btn-delete" title="Delete">
                                 <i class="fa fa-lg fa-fw fa-trash"></i>
@@ -42,3 +42,50 @@
     </x-adminlte-datatable>
 
 @stop
+@section('js')
+    <!-- TODO: cuando ejecute npm run dev quitar el cdn -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if (session('customMessage') == 'Deleted')
+        <script>
+            Swal.fire(
+                'Deleted!',
+                'Your category has been deleted.',
+                'success'
+            )
+        </script>
+    @endif
+
+    @if (session('customMessage') == 'Updated')
+        <script>
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Your category has been updated',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        </script>
+    @endif
+
+
+    <script>
+        $('.form-delete').submit(function(e){
+            e.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.submit();
+                }
+            })
+        });
+
+    </script>
+@stop
+

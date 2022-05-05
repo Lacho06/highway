@@ -21,7 +21,7 @@
             <p>{{$category->subtitle}}</p>
             <div class="d-flex col-12">
                 <div class="col-4">
-                    <img width="300" height="300" src="{{Storage::url($category->cover_image)}}" alt="{{$category->title}}">
+                    <img class="w-100" src="{{Storage::url($category->cover_image)}}" alt="{{$category->title}}">
                 </div>
                 <div class="col-8">
                     <h3>Related images</h3>

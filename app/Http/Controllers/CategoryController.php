@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Storage;
 class CategoryController extends Controller
 {
     public function viewIndex(){
-
         $categories = Category::all();
 
         return view('index', compact('categories'));

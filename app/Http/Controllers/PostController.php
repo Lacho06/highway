@@ -71,8 +71,53 @@ class PostController extends Controller
         return view('post.show', compact('post'));
     }
 
-    public function update(Request $request, Post $post){
+    public function updateImage(Request $request){
+        $request->validate([
+            'post_image' => 'required',
+            'post' => 'required'
+        ]);
 
+        $post = Post::find($request->post);
+        Storage::delete($post->image->url);
+        $url = Storage::put('images', $request->file('post_image'));
+        $post->image()->update([
+            'url' => $url
+        ]);
+
+        return back()->with('customMessage', 'Image saved');
+    }
+
+    public function update(Request $request, Post $post){
+        $request->validate([
+            'title' => 'required',
+            'text' => 'required'
+        ]);
+
+        if($post->image){
+            if($post->image->url){
+                Storage::delete($post->image->url);
+            }
+
+            $url = Storage::put('images', $request->file('cover_image'));
+
+            $post->update([
+                'title' => $request->title,
+                'slug' => Str::slug($request->title, '-'),
+                'text' => $request->text
+            ]);
+            $post->image->update([
+                'url' => $url
+            ]);
+        }else{
+            $post->update([
+                'title' => $request->title,
+                'slug' => Str::slug($request->title, '-'),
+                'text' => $request->text
+            ]);
+        }
+
+
+        return redirect()->route('post.index')->with('customMessage', 'Updated');
     }
 
     public function destroy(Post $post){
