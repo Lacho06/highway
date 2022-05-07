@@ -48,13 +48,13 @@ https://templatemo.com/tm-520-highway
 
     <div class="blog-entries">
         <div class="container">
-            <div class="col-md-9">
+            <div class="col-md-12">
                 <div class="blog-posts">
                     <div class="row">
                         @foreach ($posts as $post)
                             <div class="col-md-12">
                                 <div class="blog-post">
-                                    <img src="{{$post->image->url}}" alt="">
+                                    <img src="{{Storage::url($post->image->url)}}" alt="">
                                     <div class="text-content">
                                         <span><a href="#">{{$post->user->name}}</a> / <a href="#">{{$post->created_at->diffForHumans()}}</a> / <a href="#">Branding</a></span>
                                         <h2>{{$post->title}}</h2>
@@ -77,7 +77,7 @@ https://templatemo.com/tm-520-highway
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            {{-- <div class="col-md-3">
                 <div class="side-bar">
                     <div class="search">
                         <fieldset>
@@ -154,7 +154,7 @@ https://templatemo.com/tm-520-highway
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 

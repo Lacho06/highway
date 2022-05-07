@@ -11,7 +11,7 @@ class PlanController extends Controller
 {
     public function viewAbout(){
 
-        $plans = Plan::all();
+        $plans = Plan::orderBy('updated_at', 'desc')->take(5)->get();
 
         return view('pages.about', compact('plans'));
     }

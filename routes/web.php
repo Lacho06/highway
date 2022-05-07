@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PostController;
@@ -18,6 +19,8 @@ use App\Http\Controllers\PostController;
 */
 
 Route::get('/', [CategoryController::class, 'viewIndex'])->name('index');
+
+Route::post('contact', [ContactController::class, 'store'])->name('contact');
 
 Route::get('about', [PlanController::class, 'viewAbout'])->name('about');
 
