@@ -3,21 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PlanRequest;
+use App\Models\Card;
 use App\Models\Feature;
 use App\Models\Plan;
+use App\Models\Preference;
 use Illuminate\Http\Request;
 
 class PlanController extends Controller
 {
     public function viewAbout(){
-
         $plans = Plan::orderBy('updated_at', 'desc')->take(5)->get();
-
-        return view('pages.about', compact('plans'));
+        $cards = Card::where('isImage', false)->take(6)->get();
+        $cardAbout = Card::where('isImage', true)->first();
+        $preference = Preference::all()->first();
+        return view('pages.about', compact('plans', 'cards', 'cardAbout', 'preference'));
     }
 
     public function index(){
-        $plans = Plan::all();
+        $plans = Plan::paginate(10);
 
         return view('plan.index', compact('plans'));
     }

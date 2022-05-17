@@ -14,7 +14,7 @@
             ['label' => 'Actions', 'no-export' => true, 'width' => 5],
         ];
     @endphp
-
+    {{$posts->links()}}
     <x-adminlte-datatable id="table1" :heads="$heads">
         @foreach($posts as $post)
             <tr>
@@ -40,6 +40,7 @@
             </tr>
         @endforeach
     </x-adminlte-datatable>
+
 
 @stop
 @section('js')

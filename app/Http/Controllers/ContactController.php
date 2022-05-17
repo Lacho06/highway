@@ -14,8 +14,7 @@ class ContactController extends Controller
             'email' => 'required',
             'message' => 'required'
         ]);
-        $mail = new ContactMailable($request->all());
-        Mail::to($request->email)->send($mail);
+        Mail::to($request->email)->send(new ContactMailable($request->all()));
         return redirect()->route('index');
     }
 }

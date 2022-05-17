@@ -40,9 +40,9 @@ https://templatemo.com/tm-520-highway
         <div class="video-overlay"></div>
         <div class="video-content">
             <div class="inner">
-              <h1>Welcome to <em>Highway</em></h1>
-              <p>FREE CSS TEMPLATE by templatemo</p>
-              <p>Homepage with full-width image gallery</p>
+                <h1>Welcome to <em>Highway</em></h1>
+                <p>FREE CSS TEMPLATE by templatemo</p>
+                <p>Homepage with full-width image gallery</p>
                 <div class="scroll-icon">
                     <a class="scrollTo" data-scrollTo="portfolio" href="#"><img src="{{asset('template/img/scroll-icon.png')}}" alt=""></a>
                 </div>
@@ -146,7 +146,7 @@ https://templatemo.com/tm-520-highway
           <div class="main-menu">
               <ul>
                   <li>
-                      <a href="{{route('index')}}">Home - Full-width</a>
+                      <a href="{{route('index')}}">Home</a>
                   </li>
                   {{-- <li>
                       <a href="#">Home - Masonry</a>
@@ -164,7 +164,11 @@ https://templatemo.com/tm-520-highway
                       <a href="{{route('single-post')}}">Single Post</a>
                   </li> --}}
               </ul>
-              <p>We create awesome templates for you.</p>
+              @if ($preference->nav_subtitle)
+                <p>{{$preference->nav_subtitle}}</p>
+              @else
+                <p>We create awesome templates for you.</p>
+              @endif
           </div>
         </div>
       </div>

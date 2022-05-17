@@ -233,7 +233,7 @@ https://templatemo.com/tm-520-highway
           <div class="main-menu">
               <ul>
                   <li>
-                      <a href="{{route('index')}}">Home - Full-width</a>
+                      <a href="{{route('index')}}">Home</a>
                   </li>
                   {{-- <li>
                       <a href="masonry.html">Home - Masonry</a>
@@ -251,7 +251,11 @@ https://templatemo.com/tm-520-highway
                       <a href="{{route('single-post')}}">Single Post</a>
                   </li> --}}
               </ul>
-              <p>We create awesome templates for you</p>
+              @if ($preference->nav_subtitle)
+                <p>{{$preference->nav_subtitle}}</p>
+              @else
+                <p>We create awesome templates for you.</p>
+              @endif
           </div>
         </div>
       </div>

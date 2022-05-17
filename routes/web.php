@@ -1,22 +1,14 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CardController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MailController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PostController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\PreferenceController;
 
 Route::get('/', [CategoryController::class, 'viewIndex'])->name('index');
 
@@ -28,7 +20,17 @@ Route::get('blog', [PostController::class, 'viewBlog'])->name('blog');
 
 Route::get('single-post/{id}', [PostController::class, 'viewSinglePost'])->name('single-post');
 
+Route::post('admin/mail', [MailController::class, 'store'])->middleware('auth')->name('mail.store');
+
+Route::get('admin/mail/{mail}', [MailController::class, 'show'])->middleware('auth')->name('mail.show');
+
+Route::delete('admin/mail/{mail}', [MailController::class, 'destroy'])->middleware('auth')->name('mail.destroy');
+
 Route::get('admin', [AdminController::class, 'index'])->middleware('auth')->name('admin.index');
+
+Route::post('admin/preference', [PreferenceController::class, 'store'])->middleware('auth')->name('preference.store');
+
+Route::put('admin/preference/{preference}', [PreferenceController::class, 'update'])->middleware('auth')->name('preference.update');
 
 Route::post('admin/category/image', [CategoryController::class, 'addImage'])->middleware('auth')->name('category.addImage');
 
@@ -45,5 +47,11 @@ Route::post('admin/plan/feature', [PlanController::class, 'addFeature'])->middle
 Route::delete('admin/plan/feature/{feature}', [PlanController::class, 'deleteFeature'])->middleware('auth')->name('plan.deleteFeature');
 
 Route::resource('admin/plan', PlanController::class)->middleware('auth')->names('plan');
+
+Route::post('admin/cardImage', [CardController::class, 'storeImage'])->middleware('auth')->name('cardImage.store');
+
+Route::put('admin/cardImage/{card}', [CardController::class, 'updateImage'])->middleware('auth')->name('cardImage.update');
+
+Route::resource('admin/card', CardController::class)->except('index')->middleware('auth')->names('card');
 
 Auth::routes();

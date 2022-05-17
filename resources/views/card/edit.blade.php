@@ -7,13 +7,12 @@
 
     <div class="card card-success">
         <div class="card-header">
-            <h2>Create Category</h2>
+            <h2>Edit Card</h2>
         </div>
         <div class="card-body">
-            {!! Form::open(['route' => 'category.store', 'files' => true, 'class' => '']) !!}
-
-                <x-adminlte-input name="title" enable-old-support placeholder="Title"/>
-                <x-adminlte-input name="subtitle" enable-old-support placeholder="Subtitle"/>
+            {!! Form::model($card, ['route' => ['card.update', $card], 'method' => 'put', 'files' => true, 'class' => '']) !!}
+                <x-adminlte-input name="title" enable-old-support value="{{$card->title}}" placeholder="Title" />
+                <x-adminlte-input name="text" enable-old-support value="{{$card->text}}" placeholder="Text" />
                 <div class="d-flex justify-content-between">
                     <x-adminlte-input-file id="input_image" name="cover_image" igroup-size="sm" placeholder="Choose a image...">
                         <x-slot name="prependSlot">
@@ -22,15 +21,12 @@
                             </div>
                         </x-slot>
                     </x-adminlte-input-file>
-                    <img id="image" src="" width="200" height="200" alt="Cover Image">
+                    <img id="image" src="{{Storage::url($card->cover_image)}}" width="200" height="200" alt="Cover Image">
                 </div>
-                <x-adminlte-button label="Create" type="submit" theme="success" icon="fas fa-key"/>
-
+                <x-adminlte-button label="Update" type="submit" theme="success" icon="fas fa-key"/>
             {!! Form::close() !!}
         </div>
     </div>
-
-
 
 @stop
 @section('js')

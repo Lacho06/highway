@@ -14,7 +14,7 @@
             ['label' => 'Actions', 'no-export' => true, 'width' => 5],
         ];
     @endphp
-
+    {{$plans->links()}}
     <x-adminlte-datatable id="table1" :heads="$heads">
         @foreach($plans as $plan)
             <tr>

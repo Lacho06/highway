@@ -34,7 +34,7 @@
         //     'columns' => [null, null, null, ['orderable' => false]],
         // ];
     @endphp
-
+    {{$categories->links()}}
     <x-adminlte-datatable id="table1" :heads="$heads">
         @foreach($categories as $category)
             <tr>

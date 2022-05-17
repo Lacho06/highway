@@ -48,18 +48,25 @@ https://templatemo.com/tm-520-highway
 
     <div class="services">
         <div class="container">
-            <div class="col-md-4 col-sm-6">
-                <div class="service-item">
-                    <div class="icon">
-                        <img src="{{asset('template/img/service_1.png')}}" alt="">
-                    </div>
-                    <div class="text">
-                        <h4>FREE CSS TEMPLATE</h4>
-                        <p>Highway is a good CSS template that is available for free. Please tell your friends about templatemo site. Thank you.</p>
+            @foreach ($cards as $card)
+                <div class="col-md-4 col-sm-6">
+                    <div class="service-item">
+                        <div class="icon">
+                            @if ($card->cover_image)
+                                <img src="{{Storage::url($card->cover_image)}}" alt="{{$card->title}}">
+                            @else
+                                <img src="" alt="{{$card->title}}">
+                            @endif
+                        </div>
+                        <div class="text">
+                            <h4>{{$card->title}}</h4>
+                            <p>{{$card->text}}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
+            @endforeach
+
+            {{-- <div class="col-md-4 col-sm-6">
                 <div class="service-item">
                     <div class="icon">
                         <img src="{{asset('template/img/service_2.png')}}" alt="">
@@ -113,22 +120,55 @@ https://templatemo.com/tm-520-highway
                         <p>Donec et nisi sed magna tincidunt fermentum. Pellentesque eget semper felis, sit amet scelerisque neque.</p>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 
+{{--
+    Propiedades CSS de la clase more-about-us
 
-    <div class="more-about-us">
+    background-image: url(../img/about_us.png);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center center;
+    width: 100%;
+    text-align: center;
+--}}
+    <div class="more-about-us"
+    @if ($cardAbout->cover_image != null)
+        style="background-image: url({{Storage::url($cardAbout->cover_image)}});
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center center;
+        width: 100%;
+        text-align: center;"
+    @else
+        style="background-image: url(../img/about_us.png);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        background-position: center center;
+        width: 100%;
+        text-align: center;"
+    @endif
+    >
         <div class="container">
             <div class="col-md-5 col-md-offset-7">
                 <div class="content">
-                    <h2>Aenean vehicula tincidunt</h2>
-                    <span>Donec et nisi sed</span>
-                    <p>Vivamus vitae libero euismod, pretium magna a, vulputate metus. Curabitur et arcu felis. Praesent aliquet lectus in purus viverra varius.
-                    <br><br>Suspendisse et rutrum nisl. Phasellus porttitor metus vel justo blandit, in finibus neque elementum. Nullam semper, turpis quis egestas consequat, dui eros tristique lectus, ac euismod ex quam id mauris.</p>
-                    <div class="simple-btn">
-                        <a href="#">Continue Reading</a>
-                    </div>
+                    @if ($cardAbout)
+                        <h2>{{$cardAbout->title}}</h2>
+                        <p>{{$cardAbout->text}}</p>
+                        <div class="simple-btn">
+                            <a href="#">Continue Reading</a>
+                        </div>
+                    @else
+                        <h2>Aenean vehicula tincidunt</h2>
+                        <span>Donec et nisi sed</span>
+                        <p>Vivamus vitae libero euismod, pretium magna a, vulputate metus. Curabitur et arcu felis. Praesent aliquet lectus in purus viverra varius.
+                        <br><br>Suspendisse et rutrum nisl. Phasellus porttitor metus vel justo blandit, in finibus neque elementum. Nullam semper, turpis quis egestas consequat, dui eros tristique lectus, ac euismod ex quam id mauris.</p>
+                    @endif
                 </div>
             </div>
         </div>
@@ -224,7 +264,7 @@ https://templatemo.com/tm-520-highway
           <div class="main-menu">
               <ul>
                   <li>
-                      <a href="{{route('index')}}">Home - Full-width</a>
+                      <a href="{{route('index')}}">Home</a>
                   </li>
                   {{-- <li>
                       <a href="masonry.html">Home - Masonry</a>
@@ -242,7 +282,11 @@ https://templatemo.com/tm-520-highway
                       <a href="#">Single Post</a>
                   </li> --}}
               </ul>
-              <p>We create awesome templates for you</p>
+              @if ($preference->nav_subtitle)
+                <p>{{$preference->nav_subtitle}}</p>
+              @else
+                <p>We create awesome templates for you.</p>
+              @endif
           </div>
         </div>
       </div>

@@ -10,7 +10,7 @@
             <h2>Create Plan</h2>
         </div>
         <div class="card-body">
-            {!! Form::open(['route' => 'plan.store', 'files' => true, 'class' => '']) !!}
+            {!! Form::open(['route' => 'plan.store', 'class' => '']) !!}
 
                 <x-adminlte-input name="name" enable-old-support placeholder="Name"/>
                 <x-adminlte-input name="price" type="number" enable-old-support placeholder="Price"/>

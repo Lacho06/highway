@@ -5,30 +5,31 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostRequest;
 use App\Models\Image;
 use App\Models\Post;
+use App\Models\Preference;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
+
     public function viewBlog(){
-
         $posts = Post::all();
+        $preference = Preference::all()->first();
 
-        return view('pages.blog', compact('posts'));
+        return view('pages.blog', compact('posts', 'preference'));
     }
 
     public function viewSinglePost($id){
-
         $post = Post::find($id);
+        $preference = Preference::all()->first();
 
-        return view('pages.single-post', compact('post'));
+        return view('pages.single-post', compact('post', 'preference'));
     }
 
 
     public function index(){
-
-        $posts = Post::all();
+        $posts = Post::paginate(5);
 
         return view('post.index', compact('posts'));
     }

@@ -7,13 +7,13 @@
 
     <div class="card card-success">
         <div class="card-header">
-            <h2>Create Category</h2>
+            <h2>Create Card</h2>
         </div>
         <div class="card-body">
-            {!! Form::open(['route' => 'category.store', 'files' => true, 'class' => '']) !!}
+            {!! Form::open(['route' => 'card.store', 'files' => true, 'class' => '']) !!}
 
                 <x-adminlte-input name="title" enable-old-support placeholder="Title"/>
-                <x-adminlte-input name="subtitle" enable-old-support placeholder="Subtitle"/>
+                <x-adminlte-input name="text" enable-old-support placeholder="Text"/>
                 <div class="d-flex justify-content-between">
                     <x-adminlte-input-file id="input_image" name="cover_image" igroup-size="sm" placeholder="Choose a image...">
                         <x-slot name="prependSlot">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use App\Models\Image;
+use App\Models\Preference;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,12 +13,13 @@ class CategoryController extends Controller
 {
     public function viewIndex(){
         $categories = Category::all();
+        $preference = Preference::all()->first();
 
-        return view('index', compact('categories'));
+        return view('index', compact('categories', 'preference'));
     }
 
     public function index(){
-        $categories = Category::all();
+        $categories = Category::paginate(10);
 
         return view('category.index', compact('categories'));
     }
@@ -98,7 +100,6 @@ class CategoryController extends Controller
                 'subtitle' => $request->subtitle
             ]);
         }
-
 
         return redirect()->route('category.index')->with('customMessage', 'Updated');
     }

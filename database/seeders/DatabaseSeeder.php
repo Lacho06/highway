@@ -2,11 +2,14 @@
 
 namespace Database\Seeders;
 
+use App\Models\Card;
 use App\Models\Category;
 use App\Models\Feature;
 use App\Models\Image;
+use App\Models\Mail;
 use App\Models\Plan;
 use App\Models\Post;
+use App\Models\Preference;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
@@ -32,7 +35,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         for($i = 1; $i <= 10; $i++){
-            $post = Post::factory(1)->create([
+            Post::factory(1)->create([
                 'user_id' => $user->id
             ]);
 
@@ -43,7 +46,7 @@ class DatabaseSeeder extends Seeder
         }
 
         for($i = 1; $i <= 10; $i++){
-            $category = Category::factory(1)->create();
+            Category::factory(1)->create();
 
             Image::factory(rand(1, 3))->create([
                 'imageable_id' => $i,
@@ -52,11 +55,29 @@ class DatabaseSeeder extends Seeder
         }
 
         for($i = 1; $i <= 10; $i++){
-            $plan = Plan::factory(1)->create();
+            Plan::factory(1)->create();
             Feature::factory(rand(1,5))->create([
                 'plan_id' => $i
             ]);
         }
 
+        Mail::factory(10)->create();
+        Preference::factory(1)->create();
+
+        for($i = 0; $i < 10; $i++){
+            if($i == 0){
+                Card::factory(1)->create([
+                    'isImage' => true
+                ]);
+                Image::factory(1)->create([
+                    'imageable_id' => $i,
+                    'imageable_type' => Card::class
+                ]);
+            }else{
+                Card::factory(1)->create([
+                    'isImage' => false
+                ]);
+            }
+        }
     }
 }
