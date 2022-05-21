@@ -124,17 +124,6 @@ https://templatemo.com/tm-520-highway
         </div>
     </div>
 
-{{--
-    Propiedades CSS de la clase more-about-us
-
-    background-image: url(../img/about_us.png);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-    background-position: center center;
-    width: 100%;
-    text-align: center;
---}}
     <div class="more-about-us"
     @if ($cardAbout->cover_image != null)
         style="background-image: url({{Storage::url($cardAbout->cover_image)}});
@@ -159,9 +148,11 @@ https://templatemo.com/tm-520-highway
                 <div class="content">
                     @if ($cardAbout)
                         <h2>{{$cardAbout->title}}</h2>
-                        <p>{{$cardAbout->text}}</p>
+                        <div style="text-overflow: ellipsis;">
+                            <p>{{$cardAbout->text}}</p>
+                        </div>
                         <div class="simple-btn">
-                            <a href="#">Continue Reading</a>
+                            <a type="button" data-toggle="modal" data-target="#modalAbout_{{$cardAbout->id}}" href="#">Continue Reading</a>
                         </div>
                     @else
                         <h2>Aenean vehicula tincidunt</h2>
@@ -174,6 +165,26 @@ https://templatemo.com/tm-520-highway
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal modal-fluid fade" id="modalAbout_{{$cardAbout->id}}" tabindex="-1" role="dialog" aria-labelledby="modal_1Label" aria-hidden="true">
+        <!-- Modal Content -->
+        <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+            <div class="close-btn" data-dismiss="modal"><img src="{{asset('template/img/close_contact.png')}}" alt=""></div>
+        </div>
+        <!-- Modal Body -->
+        <div class="modal-body">
+            <div class="col-md-6 col-md-offset-3">
+                <p class="h3 text-primary">{{$cardAbout->title}}</p>
+                <p class="h3" style="color: white;">{{$cardAbout->text}}</p>
+            </div>
+        </div>
+        </div>
+    </div>
+
+
+
 
     <div class="pricing-tables">
         <div class="container">
@@ -182,15 +193,57 @@ https://templatemo.com/tm-520-highway
                 <div class="col-md-4 col-sm-6">
                     <div class="table-item">
                         <h4>${{$plan->price}}</h4>
-                        <span>{{$plan->name}}</span>
+                        <span id="plan-name">{{$plan->name}}</span>
                         <ul>
                             @foreach ($plan->features as $feature)
                                 <li>{{$feature->name}}</li>
                             @endforeach
                         </ul>
                         <div class="simple-btn">
-                            <a href="#">Details</a>
+                            <span><a type="button" data-toggle="modal" data-target="#modal_{{$plan->id}}" id="btn-modal" href="#">Buy</a></span>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal modal-fluid fade" id="modal_{{$plan->id}}" tabindex="-1" role="dialog" aria-labelledby="modal_1Label" aria-hidden="true">
+                    <!-- Modal Content -->
+                    <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h3 class="header-title">Say hello to <em>Highway</em></h3>
+                        <div class="close-btn" data-dismiss="modal"><img src="{{asset('template/img/close_contact.png')}}" alt=""></div>
+                    </div>
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                        <div class="col-md-6 col-md-offset-3">
+                        <form id="contact" action="{{route('buy')}}" method="post">
+                            @csrf
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <fieldset>
+                                        <input name="name" type="text" class="form-control" id="name" placeholder="Your name..." required="">
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12">
+                                    <fieldset>
+                                        <input name="email" type="email" class="form-control" id="email" placeholder="Your email..." required="">
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12">
+                                    <fieldset>
+                                        <input name="message" type="hidden" value="{{$plan->id}}" />
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12">
+                                    <fieldset>
+                                        <button type="submit" id="form-submit" class="btn">Buy</button>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
                     </div>
                 </div>
 
@@ -227,7 +280,8 @@ https://templatemo.com/tm-520-highway
         <!-- Modal Body -->
         <div class="modal-body">
           <div class="col-md-6 col-md-offset-3">
-            <form id="contact" action="" method="post">
+            <form id="contact" action="{{route('contact')}}" method="post">
+                @csrf
                 <div class="row">
                     <div class="col-md-12">
                       <fieldset>

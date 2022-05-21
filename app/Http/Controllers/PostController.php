@@ -14,7 +14,7 @@ class PostController extends Controller
 {
 
     public function viewBlog(){
-        $posts = Post::all();
+        $posts = Post::paginate(3);
         $preference = Preference::all()->first();
 
         return view('pages.blog', compact('posts', 'preference'));

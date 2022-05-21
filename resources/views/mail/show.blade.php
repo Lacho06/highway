@@ -19,15 +19,6 @@
 
     <!-- TODO: cuando ejecute npm run dev quitar el cdn -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    @if (session('customMessage') == 'Deleted')
-        <script>
-            Swal.fire(
-                'Deleted!',
-                'Your mail has been deleted.',
-                'success'
-            )
-        </script>
-    @endif
 
     <script>
 

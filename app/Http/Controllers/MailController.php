@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ResponseMailable;
 use App\Models\Mail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail as FacadesMail;
 
 class MailController extends Controller
 {
     public function store(Request $request){
-        return $request;
+        $mail = Mail::find($request->mail);
+        FacadesMail::to(env('MAIL_FROM_ADDRESS'))->send(new ResponseMailable($mail));
+        return back();
     }
 
     public function show($id){

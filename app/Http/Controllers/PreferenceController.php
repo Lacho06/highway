@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PreferenceRequest;
 use App\Models\Preference;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PreferenceController extends Controller
 {
@@ -16,16 +17,35 @@ class PreferenceController extends Controller
             'main_video' => 'required|file|max:51200',
             'nav_subtitle' => 'required'
         ]);
-
+        if($request->file('main_video')){
+            $url = Storage::put('video', $request->file('main_video'));
+            Preference::create([
+                'main_title' => $request->main_title,
+                'main_subtitle' => $request->main_subtitle,
+                'main_video' => $url
+            ]);
+        }
         return back()->with('customMessage', 'Preferences Created');
     }
 
     public function update(PreferenceRequest $request, Preference $preference){
-        $preference->main_title = $request->main_title;
-        $preference->main_subtitle = $request->main_subtitle;
-        $preference->nav_subtitle = $request->nav_subtitle;
-        if($request->main_video != null){
-            $preference->main_video = $request->main_video;
+        if($request->main_video){
+            if($preference->main_video){
+                Storage::delete($preference->main_video);
+            }
+
+            $url = Storage::put('video', $request->file('main_video'));
+
+            $preference->update([
+                'main_title' => $request->title,
+                'main_subtitle' => $request->subtitle,
+                'main_video' => $url,
+            ]);
+        }else{
+            $preference->update([
+                'main_title' => $request->title,
+                'main_subtitle' => $request->subtitle
+            ]);
         }
 
         return back()->with('customMessage', 'Preferences Updated');

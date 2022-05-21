@@ -44,8 +44,6 @@ https://templatemo.com/tm-520-highway
             </div>
         </div>
     </div>
-
-
     <div class="blog-entries">
         <div class="container">
             <div class="col-md-12">
@@ -67,12 +65,13 @@ https://templatemo.com/tm-520-highway
                             </div>
                         @endforeach
                         <div class="col-md-12">
-                            <ul class="page-number">
+                            {{$posts->links('pages.paginator')}}
+                            {{-- <ul class="page-number">
                                 <li class="active"><a href="#">1</a></li>
                                 <li><a href="#">2</a></li>
                                 <li><a href="#">3</a></li>
                                 <li><a href="#">></a></li>
-                            </ul>
+                            </ul> --}}
                         </div>
                     </div>
                 </div>
@@ -187,7 +186,8 @@ https://templatemo.com/tm-520-highway
         <!-- Modal Body -->
         <div class="modal-body">
           <div class="col-md-6 col-md-offset-3">
-            <form id="contact" action="" method="post">
+            <form id="contact" action="{{route('contact')}}" method="post">
+                @csrf
                 <div class="row">
                     <div class="col-md-12">
                       <fieldset>

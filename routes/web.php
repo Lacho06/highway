@@ -14,6 +14,8 @@ Route::get('/', [CategoryController::class, 'viewIndex'])->name('index');
 
 Route::post('contact', [ContactController::class, 'store'])->name('contact');
 
+Route::post('buy', [ContactController::class, 'buy'])->name('buy');
+
 Route::get('about', [PlanController::class, 'viewAbout'])->name('about');
 
 Route::get('blog', [PostController::class, 'viewBlog'])->name('blog');

@@ -196,7 +196,8 @@ https://templatemo.com/tm-520-highway
         <!-- Modal Body -->
         <div class="modal-body">
           <div class="col-md-6 col-md-offset-3">
-            <form id="contact" action="" method="post">
+            <form id="contact" action="{{route('contact')}}" method="post">
+                @csrf
                 <div class="row">
                     <div class="col-md-12">
                       <fieldset>

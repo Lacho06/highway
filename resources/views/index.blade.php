@@ -41,15 +41,27 @@ https://templatemo.com/tm-520-highway
         <div class="video-content">
             <div class="inner">
                 <h1>Welcome to <em>Highway</em></h1>
-                <p>FREE CSS TEMPLATE by templatemo</p>
-                <p>Homepage with full-width image gallery</p>
+                @if ($preference->main_title)
+                    <p>{{$preference->main_title}}</p>
+                @else
+                    <p>FREE CSS TEMPLATE by templatemo</p>
+                @endif
+                @if ($preference->main_subtitle)
+                    <p>{{$preference->main_subtitle}}</p>
+                @else
+                    <p>Homepage with full-width image gallery</p>
+                @endif
                 <div class="scroll-icon">
                     <a class="scrollTo" data-scrollTo="portfolio" href="#"><img src="{{asset('template/img/scroll-icon.png')}}" alt=""></a>
                 </div>
             </div>
         </div>
         <video autoplay="" loop="" muted>
-        	<source src="{{asset('template/highway-loop.mp4')}}" type="video/mp4" />
+            @if ($preference->main_video)
+                <source src="{{Storage::url($preference->main_video)}}" type="video/mp4" />
+            @else
+        	    <source src="{{asset('template/highway-loop.mp4')}}" type="video/mp4" />
+            @endif
         </video>
     </div>
 
@@ -61,7 +73,7 @@ https://templatemo.com/tm-520-highway
 
                 <div class="col-md-4 col-sm-6">
                     <div class="portfolio-item">
-                        <a href="{{$category->cover_image}}" data-lightbox="image-1"><div class="thumb">
+                        <a href="{{Storage::url($category->cover_image)}}" data-lightbox="image-1"><div class="thumb">
                             <div class="hover-effect">
                                 <div class="hover-content">
                                     <h1>{{$category->title}}</h1>
