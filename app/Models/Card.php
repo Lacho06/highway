@@ -10,6 +10,6 @@ class Card extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'text', 'cover_image'];
+    protected $fillable = ['title', 'text', 'isImage', 'cover_image'];
 
 }

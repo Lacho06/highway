@@ -125,7 +125,7 @@ https://templatemo.com/tm-520-highway
     </div>
 
     <div class="more-about-us"
-    @if ($cardAbout->cover_image != null)
+    @if ($cardAbout)
         style="background-image: url({{Storage::url($cardAbout->cover_image)}});
         background-repeat: no-repeat;
         background-attachment: fixed;
@@ -165,24 +165,25 @@ https://templatemo.com/tm-520-highway
         </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal modal-fluid fade" id="modalAbout_{{$cardAbout->id}}" tabindex="-1" role="dialog" aria-labelledby="modal_1Label" aria-hidden="true">
-        <!-- Modal Content -->
-        <div class="modal-content">
-        <!-- Modal Header -->
-        <div class="modal-header">
-            <div class="close-btn" data-dismiss="modal"><img src="{{asset('template/img/close_contact.png')}}" alt=""></div>
-        </div>
-        <!-- Modal Body -->
-        <div class="modal-body">
-            <div class="col-md-6 col-md-offset-3">
-                <p class="h3 text-primary">{{$cardAbout->title}}</p>
-                <p class="h3" style="color: white;">{{$cardAbout->text}}</p>
+    @if ($cardAbout)
+        <!-- Modal -->
+        <div class="modal modal-fluid fade" id="modalAbout_{{$cardAbout->id}}" tabindex="-1" role="dialog" aria-labelledby="modal_1Label" aria-hidden="true">
+            <!-- Modal Content -->
+            <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <div class="close-btn" data-dismiss="modal"><img src="{{asset('template/img/close_contact.png')}}" alt=""></div>
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <div class="col-md-6 col-md-offset-3">
+                    <p class="h3 text-primary">{{$cardAbout->title}}</p>
+                    <p class="h3" style="color: white;">{{$cardAbout->text}}</p>
+                </div>
+            </div>
             </div>
         </div>
-        </div>
-    </div>
-
+    @endif
 
 
 
@@ -336,7 +337,7 @@ https://templatemo.com/tm-520-highway
                       <a href="#">Single Post</a>
                   </li> --}}
               </ul>
-              @if ($preference->nav_subtitle)
+              @if ($preference)
                 <p>{{$preference->nav_subtitle}}</p>
               @else
                 <p>We create awesome templates for you.</p>

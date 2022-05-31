@@ -12,12 +12,19 @@
         @if ($preference != null)
 
             {!! Form::model($preference, ['route' => ['preference.update', $preference], 'method' => 'put', 'files' => true, 'class' => 'my-3']) !!}
+                {!! Form::label('main_title', 'Title') !!}
+                <small class="h6 d-inline text-danger">*</small>
                 <x-adminlte-input name="main_title" enable-old-support value="{{$preference->main_title}}" placeholder="Main Title"/>
+                {!! Form::label('main_subtitle', 'Subtitle') !!}
+                <small class="h6 d-inline text-danger">*</small>
                 <x-adminlte-input name="main_subtitle" enable-old-support value="{{$preference->main_subtitle}}" placeholder="Main Subtitle"/>
+                {!! Form::label('nav_subtitle', 'Nav Subtitle') !!}
+                <small class="h6 d-inline text-danger">*</small>
                 <x-adminlte-input name="nav_subtitle" enable-old-support value="{{$preference->nav_subtitle}}" placeholder="Nav Subtitle"/>
                 <div class="d-flex justify-content-between">
                     <div class="d-flex flex-column">
-                        <x-adminlte-input-file id="input_video" name="main_video" igroup-size="sm" placeholder="Choose a video...">
+                        {!! Form::label('main_video', 'Video') !!}
+                        <x-adminlte-input-file id="input_video" enable-old-support name="main_video" igroup-size="sm" placeholder="Choose a video...">
                             <x-slot name="prependSlot">
                                 <div class="input-group-text bg-lightblue">
                                     <i class="fas fa-upload"></i>
@@ -26,7 +33,7 @@
                         </x-adminlte-input-file>
                         <x-adminlte-button label="Update" class="px-5 mr-auto" type="submit" theme="success" icon="fas fa-key"/>
                     </div>
-                    @if ($preference->main_video)
+                    @if ($preference->main_video != null)
                         <video id="video" src="{{$preference->main_video}}" width="200"></video>
                     @else
                         <video id="video" src="" width="200"></video>
@@ -37,12 +44,19 @@
         @else
 
             {!! Form::open(['route' => 'preference.store', 'files' => true, 'class' => 'my-3']) !!}
-                <x-adminlte-input name="main_title" placeholder="Main Title"/>
-                <x-adminlte-input name="main_subtitle" placeholder="Main Subtitle"/>
-                <x-adminlte-input name="nav_subtitle" placeholder="Nav Subtitle"/>
+                {!! Form::label('main_title', 'Title') !!}
+                <small class="h6 d-inline text-danger">*</small>
+                <x-adminlte-input name="main_title" enable-old-support placeholder="Main Title"/>
+                {!! Form::label('main_subtitle', 'Subtitle') !!}
+                <small class="h6 d-inline text-danger">*</small>
+                <x-adminlte-input name="main_subtitle" enable-old-support placeholder="Main Subtitle"/>
+                {!! Form::label('nav_subtitle', 'Nav Subtitle') !!}
+                <small class="h6 d-inline text-danger">*</small>
+                <x-adminlte-input name="nav_subtitle" enable-old-support placeholder="Nav Subtitle"/>
                 <div class="d-flex justify-content-between">
                     <div class="d-flex flex-column">
-                        <x-adminlte-input-file id="input_video" name="main_video" igroup-size="sm" placeholder="Choose a video...">
+                        {!! Form::label('main_video', 'Video') !!}
+                        <x-adminlte-input-file id="input_video" enable-old-support name="main_video" igroup-size="sm" placeholder="Choose a video...">
                             <x-slot name="prependSlot">
                                 <div class="input-group-text bg-lightblue">
                                     <i class="fas fa-upload"></i>
@@ -61,11 +75,15 @@
 
         @if ($cardImage != null)
             {!! Form::model($cardImage, ['route' => ['cardImage.update', $cardImage], 'method' => 'put', 'files' => true, 'class' => '']) !!}
-
+                {!! Form::label('title', 'Title') !!}
+                <small class="d-inline h6 text-danger">*</small>
                 <x-adminlte-input name="title" enable-old-support value="{{$cardImage->title}}" placeholder="Title"/>
+                {!! Form::label('text', 'Text') !!}
+                <small class="d-inline h6 text-danger">*</small>
                 <x-adminlte-input name="text" enable-old-support value="{{$cardImage->text}}" placeholder="Text"/>
                 <div class="d-flex justify-content-between">
                     <div class="d-flex flex-column">
+                        {!! Form::label('cover_image', 'Image') !!}
                         <x-adminlte-input-file id="input_image" name="cover_image" igroup-size="sm" placeholder="Choose a image...">
                             <x-slot name="prependSlot">
                                 <div class="input-group-text bg-lightblue">
@@ -75,7 +93,7 @@
                         </x-adminlte-input-file>
                         <x-adminlte-button label="Update" class="px-5 mr-auto" type="submit" theme="success" icon="fas fa-key"/>
                     </div>
-                    @if ($cardImage->cover_image)
+                    @if ($cardImage->cover_image != null)
                         <img id="image" src="{{Storage::url($cardImage->cover_image)}}" width="200" alt="Cover Image">
                     @else
                         <img id="image" src="" width="200" alt="Cover Image">
@@ -87,12 +105,16 @@
         @else
 
             {!! Form::open(['route' => 'cardImage.store', 'files' => true, 'class' => '']) !!}
-
+                {!! Form::label('title', 'Title') !!}
+                <small class="d-inline h6 text-danger">*</small>
                 <x-adminlte-input name="title" enable-old-support placeholder="Title"/>
+                {!! Form::label('text', 'Text') !!}
+                <small class="d-inline h6 text-danger">*</small>
                 <x-adminlte-input name="text" enable-old-support placeholder="Text"/>
                 <div class="d-flex justify-content-between">
                     <div class="d-flex flex-column">
-                        <x-adminlte-input-file id="input_image" name="cover_image" igroup-size="sm" placeholder="Choose a image...">
+                        {!! Form::label('cover_image', 'Image') !!}
+                        <x-adminlte-input-file id="input_image" enable-old-support name="cover_image" igroup-size="sm" placeholder="Choose a image...">
                             <x-slot name="prependSlot">
                                 <div class="input-group-text bg-lightblue">
                                     <i class="fas fa-upload"></i>
@@ -117,42 +139,66 @@
         $heads = [
             'ID',
             'Title',
-            ['label' => 'Text', 'width' => 40],
+            // ['label' => 'Text', 'width' => 40],
             ['label' => 'Actions', 'no-export' => true, 'width' => 5],
         ];
     @endphp
-    <div class="d-flex justify-content-between">
-        {{$cards->links()}}
-        <a href="{{route('card.create')}}">
-            <x-adminlte-button label="Create Card" theme="info" icon="fas fa-info-circle"/>
-        </a>
-    </div>
 
-    <x-adminlte-datatable id="table1" :heads="$heads">
-        @foreach($cards as $card)
-            <tr>
-                <td>{{$card->id}}</td>
-                <td>{{$card->title}}</td>
-                <td>{{$card->text}}</td>
-                <td>
-                    <nobr>
-                        <a href="{{route('card.edit', $card)}}" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
-                            <i class="fa fa-lg fa-fw fa-pen"></i>
-                        </a>
-                        <form action="{{route('card.destroy', $card)}}" method="post" class="d-inline form-delete">
-                            @csrf @method("DELETE")
-                            <button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" id="btn-delete" title="Delete">
-                                <i class="fa fa-lg fa-fw fa-trash"></i>
-                            </button>
-                        </form>
-                        <a href="{{route('card.show', $card->id)}}" class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
-                            <i class="fa fa-lg fa-fw fa-eye"></i>
-                        </a>
-                    </nobr>
-                </td>
-            </tr>
-        @endforeach
-    </x-adminlte-datatable>
+
+        <div class="d-flex justify-content-between my-3">
+            <div>
+                {{$cards->links()}}
+            </div>
+            <div>
+                <a href="{{route('card.create')}}">
+                    <x-adminlte-button label="Create Card" theme="info" />
+                </a>
+                <x-adminlte-button id="btnDeleteAllCards" label="Delete All Card" theme="danger" />
+                <form action="{{route('card.deleteAll')}}" method="post" class="d-none form-deleteAllCards">
+                    @csrf @method("DELETE")
+                    <button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" id="btn-delete" title="Delete All">
+                        <i class="fa fa-lg fa-fw fa-trash"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <x-adminlte-datatable id="table1" :heads="$heads">
+            @forelse($cards as $card)
+                {!! Form::open(['route' => ['card.destroy', $card], 'method' => 'delete', 'class' => '']) !!}
+                <tr>
+                    <td>
+                        {{$card->id}}
+                    </td>
+                    <td>{{$card->title}}</td>
+                    {!! Form::hidden('card_id', $card->id) !!}
+                    {{-- <td>{{$card->text}}</td> --}}
+                    <td>
+                        <nobr>
+                            <a href="{{route('card.edit', $card)}}" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
+                                <i class="fa fa-lg fa-fw fa-pen"></i>
+                            </a>
+                            <form action="{{route('card.destroy', $card)}}" method="post" class="d-inline form-delete">
+                                @csrf @method("DELETE")
+                                <button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" id="btn-delete" title="Delete">
+                                    <i class="fa fa-lg fa-fw fa-trash"></i>
+                                </button>
+                            </form>
+                            <a href="{{route('card.show', $card->id)}}" class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
+                                <i class="fa fa-lg fa-fw fa-eye"></i>
+                            </a>
+                        </nobr>
+                    </td>
+                </tr>
+                {!! Form::close() !!}
+            @empty
+                <tr>
+                    <td></td>
+                    <td>There are no cards to show</td>
+                    <td></td>
+                </tr>
+            @endforelse
+        </x-adminlte-datatable>
 
 
     <h2>Received Emails</h2>
@@ -165,10 +211,22 @@
             ['label' => 'Actions', 'no-export' => true, 'width' => 5],
         ];
     @endphp
-    {{$mails->links()}}
-
+    <div class="d-flex justify-content-between my-3">
+        <div>
+            {{$mails->links()}}
+        </div>
+        <div>
+            <x-adminlte-button id="btnDeleteAllMails" label="Delete All Mails" theme="danger" />
+            <form action="{{route('mail.deleteAll')}}" method="post" class="d-none form-deleteAllMails">
+                @csrf @method("DELETE")
+                <button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" id="btn-delete" title="Delete All">
+                    <i class="fa fa-lg fa-fw fa-trash"></i>
+                </button>
+            </form>
+        </div>
+    </div>
     <x-adminlte-datatable id="table1" :heads="$heads">
-        @foreach($mails as $mail)
+        @forelse($mails as $mail)
             <tr>
                 <td>{{$mail->id}}</td>
                 <td>{{$mail->name}}</td>
@@ -187,7 +245,13 @@
                     </nobr>
                 </td>
             </tr>
-        @endforeach
+        @empty
+            <tr>
+                <td></td>
+                <td>There are no emails to show</td>
+                <td></td>
+            </tr>
+        @endforelse
     </x-adminlte-datatable>
 
 @stop
@@ -196,6 +260,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
+
         $('.form-delete').submit(function(e){
             e.preventDefault();
             Swal.fire({
@@ -216,6 +281,60 @@
     </script>
 
     <script>
+        const btnDeleteAllCards = document.getElementById('btnDeleteAllCards');
+        btnDeleteAllCards.addEventListener('click', function (e){
+
+            $('.form-deleteAllCards').submit(function(e){
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.submit();
+                    }
+                })
+            });
+
+            $('.form-deleteAllCards').submit();
+        })
+
+    </script>
+
+    <script>
+        const btnDeleteAllMails = document.getElementById('btnDeleteAllMails');
+        btnDeleteAllMails.addEventListener('click', function (e){
+
+            $('.form-deleteAllMails').submit(function(e){
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.submit();
+                    }
+                })
+            });
+
+            $('.form-deleteAllMails').submit();
+        })
+
+    </script>
+
+
+    <script>
+
             $('.form-email-delete').submit(function(e){
                 e.preventDefault();
                 Swal.fire({
@@ -236,13 +355,13 @@
         </script>
 
     @if (session('customMessage') == 'Mail Deleted')
-    <script>
-        Swal.fire(
-            'Deleted!',
-            'Your mail has been deleted.',
-            'success'
-        )
-    </script>
+        <script>
+            Swal.fire(
+                'Deleted!',
+                'Your mail has been deleted.',
+                'success'
+            )
+        </script>
     @endif
 
     @if (session('customMessage') == 'Preferences Created')
@@ -270,6 +389,26 @@
             Swal.fire(
                 'Deleted!',
                 'Your card has been deleted.',
+                'success'
+            )
+        </script>
+    @endif
+
+    @if (session('customMessage') == 'All Cards Deleted')
+        <script>
+            Swal.fire(
+                'Deleted!',
+                'All your cards has been deleted.',
+                'success'
+            )
+        </script>
+    @endif
+
+    @if (session('customMessage') == 'All Mails Deleted')
+        <script>
+            Swal.fire(
+                'Deleted!',
+                'All your mails has been deleted.',
                 'success'
             )
         </script>
@@ -313,6 +452,7 @@
 
 
     <script>
+
         const input_video = document.getElementById('input_video')
         input_video.addEventListener('change', changeVideo)
         function changeVideo(e){

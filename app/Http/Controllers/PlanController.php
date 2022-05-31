@@ -73,4 +73,13 @@ class PlanController extends Controller
         return redirect()->route('plan.index')->with('customMessage', 'Deleted');
     }
 
+    public function deleteAll(){
+        $plans = Plan::all();
+        foreach($plans as $plan){
+            $plan->delete();
+        }
+
+        return back()->with('customMessage', 'All Plans Deleted');
+    }
+
 }

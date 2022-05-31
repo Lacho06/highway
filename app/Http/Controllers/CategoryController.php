@@ -112,4 +112,13 @@ class CategoryController extends Controller
         return redirect()->route('category.index')->with('customMessage', 'Deleted');
     }
 
+    public function deleteAll(){
+        $categories = Category::all();
+        foreach($categories as $category){
+            $category->delete();
+        }
+
+        return back()->with('customMessage', 'All Categories Deleted');
+    }
+
 }

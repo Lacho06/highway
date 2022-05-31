@@ -13,19 +13,26 @@
         </div>
         <div class="card-body">
             {!! Form::model($category, ['route' => ['category.update', $category], 'method' => 'put', 'files' => true, 'class' => '']) !!}
+                {!! Form::label('title', 'Title') !!}
+                <small class="d-inline h6 text-danger">*</small>
                 <x-adminlte-input name="title" enable-old-support value="{{$category->title}}" placeholder="Title" />
+                {!! Form::label('subtitle', 'Subtitle') !!}
+                <small class="d-inline h6 text-danger">*</small>
                 <x-adminlte-input name="subtitle" enable-old-support value="{{$category->subtitle}}" placeholder="Subtitle" />
+                {!! Form::label('cover_image', 'Image') !!}
                 <div class="d-flex justify-content-between">
-                    <x-adminlte-input-file id="input_image" name="cover_image" igroup-size="sm" placeholder="Choose a image...">
-                        <x-slot name="prependSlot">
-                            <div class="input-group-text bg-lightblue">
-                                <i class="fas fa-upload"></i>
-                            </div>
-                        </x-slot>
-                    </x-adminlte-input-file>
+                    <div class="d-flex flex-column">
+                        <x-adminlte-input-file id="input_image" name="cover_image" igroup-size="sm" placeholder="Choose a image...">
+                            <x-slot name="prependSlot">
+                                <div class="input-group-text bg-lightblue">
+                                    <i class="fas fa-upload"></i>
+                                </div>
+                            </x-slot>
+                        </x-adminlte-input-file>
+                        <x-adminlte-button class="mr-auto" label="Update" type="submit" theme="success" icon="fas fa-key"/>
+                    </div>
                     <img id="image" src="{{Storage::url($category->cover_image)}}" width="200" height="200" alt="Cover Image">
                 </div>
-                <x-adminlte-button label="Update" type="submit" theme="success" icon="fas fa-key"/>
             {!! Form::close() !!}
         </div>
     </div>

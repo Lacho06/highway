@@ -22,6 +22,7 @@ class PreferenceController extends Controller
             Preference::create([
                 'main_title' => $request->main_title,
                 'main_subtitle' => $request->main_subtitle,
+                'nav_subtitle' => $request->nav_subtitle,
                 'main_video' => $url
             ]);
         }
@@ -37,14 +38,16 @@ class PreferenceController extends Controller
             $url = Storage::put('video', $request->file('main_video'));
 
             $preference->update([
-                'main_title' => $request->title,
-                'main_subtitle' => $request->subtitle,
+                'main_title' => $request->main_title,
+                'main_subtitle' => $request->main_subtitle,
+                'nav_subtitle' => $request->nav_subtitle,
                 'main_video' => $url,
             ]);
         }else{
             $preference->update([
-                'main_title' => $request->title,
-                'main_subtitle' => $request->subtitle
+                'main_title' => $request->main_title,
+                'main_subtitle' => $request->main_subtitle,
+                'nav_subtitle' => $request->nav_subtitle
             ]);
         }
 

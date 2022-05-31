@@ -11,11 +11,17 @@
         </div>
         <div class="card-body">
             {!! Form::model($post, ['route' => ['post.update', $post], 'method' => 'put', 'files' => true, 'class' => '']) !!}
+                {!! Form::label('title', 'Title') !!}
+                <small class="d-inline h6 text-danger">*</small>
                 <x-adminlte-input name="title" enable-old-support value="{{$post->title}}" placeholder="Title"/>
+                {!! Form::label('text', 'Text') !!}
+                <small class="d-inline h6 text-danger">*</small>
                 <x-adminlte-textarea name="text" enable-old-support placeholder="Insert text...">
                     {{$post->text}}
                 </x-adminlte-textarea>
-                    <div class="d-flex justify-content-between">
+                {!! Form::label('cover_image', 'Image') !!}
+                <div class="d-flex justify-content-between">
+                    <div class="d-flex flex-column">
                         <x-adminlte-input-file id="input_image" name="cover_image" igroup-size="sm" placeholder="Choose a image...">
                             <x-slot name="prependSlot">
                                 <div class="input-group-text bg-lightblue">
@@ -23,9 +29,10 @@
                                 </div>
                             </x-slot>
                         </x-adminlte-input-file>
-                        <img id="image" src="{{Storage::url($post->image->url)}}" width="200" height="200" alt="Cover Image">
+                        <x-adminlte-button class="mr-auto" label="Update" type="submit" theme="success" icon="fas fa-key"/>
                     </div>
-                <x-adminlte-button label="Update" type="submit" theme="success" icon="fas fa-key"/>
+                    <img id="image" src="{{Storage::url($post->image->url)}}" width="200" height="200" alt="Cover Image">
+                </div>
             {!! Form::close() !!}
 
         </div>

@@ -128,8 +128,17 @@ class PostController extends Controller
             $post->image()->delete();
         }
         $post->delete();
-        // TODO: arreglar el problema con las sesiones y los mensajes, ponerlos flash
+
         return redirect()->route('post.index')->with('customMessage', 'Deleted');
+    }
+
+    public function deleteAll(){
+        $posts = Post::all();
+        foreach($posts as $post){
+            $post->delete();
+        }
+
+        return back()->with('customMessage', 'All Posts Deleted');
     }
 
 }

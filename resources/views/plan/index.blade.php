@@ -14,7 +14,18 @@
             ['label' => 'Actions', 'no-export' => true, 'width' => 5],
         ];
     @endphp
-    {{$plans->links()}}
+    <div class="d-flex justify-content-between my-3">
+        <div>
+            {{$plans->links()}}
+        </div>
+        <x-adminlte-button id="btnDeleteAllPlans" label="Delete All Plans" theme="danger" />
+        <form action="{{route('plan.deleteAll')}}" method="post" class="d-none form-deleteAllPlans">
+            @csrf @method("DELETE")
+            <button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" id="btn-delete" title="Delete All">
+                <i class="fa fa-lg fa-fw fa-trash"></i>
+            </button>
+        </form>
+    </div>
     <x-adminlte-datatable id="table1" :heads="$heads">
         @foreach($plans as $plan)
             <tr>
@@ -67,6 +78,15 @@
         </script>
     @endif
 
+    @if (session('customMessage') == 'All Plans Deleted')
+        <script>
+            Swal.fire(
+                'Deleted!',
+                'All your plans has been deleted.',
+                'success'
+            )
+        </script>
+    @endif
 
     <script>
         $('.form-delete').submit(function(e){

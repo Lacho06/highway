@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 @section('title', 'Highway - Admin')
 @section('content_header')
-    <div class="mt-3"></div>
+    <div class="mt-1"></div>
 @stop
 @section('content')
 
@@ -11,20 +11,27 @@
         </div>
         <div class="card-body">
             {!! Form::open(['route' => 'category.store', 'files' => true, 'class' => '']) !!}
-
+                {!! Form::label('title', 'Title') !!}
+                <small class="d-inline h6 text-danger">*</small>
                 <x-adminlte-input name="title" enable-old-support placeholder="Title"/>
+                {!! Form::label('subtitle', 'Subtitle') !!}
+                <small class="d-inline h6 text-danger">*</small>
                 <x-adminlte-input name="subtitle" enable-old-support placeholder="Subtitle"/>
+                {!! Form::label('cover_image', 'Image') !!}
+                <small class="d-inline h6 text-danger">*</small>
                 <div class="d-flex justify-content-between">
-                    <x-adminlte-input-file id="input_image" name="cover_image" igroup-size="sm" placeholder="Choose a image...">
-                        <x-slot name="prependSlot">
-                            <div class="input-group-text bg-lightblue">
-                                <i class="fas fa-upload"></i>
-                            </div>
-                        </x-slot>
-                    </x-adminlte-input-file>
+                    <div class="d-flex flex-column">
+                        <x-adminlte-input-file id="input_image" name="cover_image" igroup-size="sm" placeholder="Choose a image...">
+                            <x-slot name="prependSlot">
+                                <div class="input-group-text bg-lightblue">
+                                    <i class="fas fa-upload"></i>
+                                </div>
+                            </x-slot>
+                        </x-adminlte-input-file>
+                        <x-adminlte-button class="mr-auto" label="Create" type="submit" theme="success" icon="fas fa-key"/>
+                    </div>
                     <img id="image" src="" width="200" height="200" alt="Cover Image">
                 </div>
-                <x-adminlte-button label="Create" type="submit" theme="success" icon="fas fa-key"/>
 
             {!! Form::close() !!}
         </div>

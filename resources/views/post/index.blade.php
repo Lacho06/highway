@@ -14,13 +14,24 @@
             ['label' => 'Actions', 'no-export' => true, 'width' => 5],
         ];
     @endphp
-    {{$posts->links()}}
+    <div class="d-flex justify-content-between my-3">
+        <div>
+            {{$posts->links()}}
+        </div>
+        <x-adminlte-button id="btnDeleteAllPosts" label="Delete All Posts" theme="danger" />
+        <form action="{{route('post.deleteAll')}}" method="post" class="d-none form-deleteAllPosts">
+            @csrf @method("DELETE")
+            <button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" id="btn-delete" title="Delete All">
+                <i class="fa fa-lg fa-fw fa-trash"></i>
+            </button>
+        </form>
+    </div>
     <x-adminlte-datatable id="table1" :heads="$heads">
         @foreach($posts as $post)
             <tr>
                 <td>{{$post->id}}</td>
                 <td>{{$post->title}}</td>
-                <td>{{$post->text}}</td>
+                <td style="text-overflow: ellipsis;">{{$post->text}}</td>
                 <td>
                     <nobr>
                         <a href="{{route('post.edit', $post)}}" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
@@ -70,6 +81,16 @@
     @endif
 
 
+    @if (session('customMessage') == 'All Posts Deleted')
+        <script>
+            Swal.fire(
+                'Deleted!',
+                'All your posts has been deleted.',
+                'success'
+            )
+        </script>
+    @endif
+
     <script>
         $('.form-delete').submit(function(e){
             e.preventDefault();
@@ -87,6 +108,32 @@
                 }
             })
         });
+
+    </script>
+
+    <script>
+        const btnDeleteAllPosts = document.getElementById('btnDeleteAllPosts');
+        btnDeleteAllPosts.addEventListener('click', function (e){
+
+            $('.form-deleteAllPosts').submit(function(e){
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.submit();
+                    }
+                })
+            });
+
+            $('.form-deleteAllPosts').submit();
+        })
 
     </script>
 @stop

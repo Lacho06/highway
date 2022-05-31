@@ -24,4 +24,13 @@ class MailController extends Controller
         $mail->delete();
         return redirect()->route('admin.index')->with('customMessage', 'Mail Deleted');
     }
+
+    public function deleteAll(){
+        $mails = Mail::all();
+        foreach($mails as $mail){
+            $mail->delete();
+        }
+
+        return back()->with('customMessage', 'All Mails Deleted');
+    }
 }

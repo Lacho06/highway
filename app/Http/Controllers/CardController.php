@@ -34,6 +34,7 @@ class CardController extends Controller
             Card::create([
                 'title' => $request->title,
                 'text' => $request->text,
+                'isImage' => true,
                 'cover_image' => $url
             ]);
             return redirect()->route('admin.index')->with('customMessage', 'Card Created');
@@ -90,11 +91,13 @@ class CardController extends Controller
             $card->update([
                 'title' => $request->title,
                 'text' => $request->text,
+                'isImage' => true,
                 'cover_image' => $url
             ]);
         }else{
             $card->update([
                 'title' => $request->title,
+                'isImage' => true,
                 'text' => $request->text
             ]);
         }
@@ -106,5 +109,14 @@ class CardController extends Controller
         $card->delete();
 
         return back()->with('customMessage', 'Card Deleted');
+    }
+
+    public function deleteAll(){
+        $cards = Card::where('isImage', false)->get();
+        foreach($cards as $card){
+            $card->delete();
+        }
+
+        return back()->with('customMessage', 'All Cards Deleted');
     }
 }

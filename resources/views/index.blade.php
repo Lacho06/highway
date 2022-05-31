@@ -41,12 +41,12 @@ https://templatemo.com/tm-520-highway
         <div class="video-content">
             <div class="inner">
                 <h1>Welcome to <em>Highway</em></h1>
-                @if ($preference->main_title)
+                @if ($preference != null && $preference->main_title != null)
                     <p>{{$preference->main_title}}</p>
                 @else
                     <p>FREE CSS TEMPLATE by templatemo</p>
                 @endif
-                @if ($preference->main_subtitle)
+                @if ($preference != null && $preference->main_subtitle != null)
                     <p>{{$preference->main_subtitle}}</p>
                 @else
                     <p>Homepage with full-width image gallery</p>
@@ -57,7 +57,7 @@ https://templatemo.com/tm-520-highway
             </div>
         </div>
         <video autoplay="" loop="" muted>
-            @if ($preference->main_video)
+            @if ($preference != null && $preference->main_video != null)
                 <source src="{{Storage::url($preference->main_video)}}" type="video/mp4" />
             @else
         	    <source src="{{asset('template/highway-loop.mp4')}}" type="video/mp4" />
@@ -176,7 +176,7 @@ https://templatemo.com/tm-520-highway
                       <a href="{{route('single-post')}}">Single Post</a>
                   </li> --}}
               </ul>
-              @if ($preference->nav_subtitle)
+              @if ($preference != null && $preference->nav_subtitle != null)
                 <p>{{$preference->nav_subtitle}}</p>
               @else
                 <p>We create awesome templates for you.</p>

@@ -12,7 +12,11 @@
         </div>
         <div class="card-body">
             {!! Form::model($plan, ['route' => ['plan.update', $plan], 'files' => true, 'method' => 'put', 'class' => '']) !!}
+                {!! Form::label('name', 'Name') !!}
+                <small class="d-inline h6 text-danger">*</small>
                 <x-adminlte-input name="name" enable-old-support value="{{$plan->name}}" placeholder="Name"/>
+                {!! Form::label('price', 'Price') !!}
+                <small class="d-inline h6 text-danger">*</small>
                 <x-adminlte-input name="price" type="number" enable-old-support value="{{$plan->price}}" placeholder="Price"/>
                 <x-adminlte-button label="Update" type="submit" theme="success" icon="fas fa-key"/>
             {!! Form::close() !!}
