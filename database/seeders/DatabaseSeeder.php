@@ -29,55 +29,57 @@ class DatabaseSeeder extends Seeder
         Storage::makeDirectory('/storage/images/');
 
         $user = User::create([
-            'name' => 'Admin',
-            'email' => 'Admin@gmail.com',
-            'password' => bcrypt('12345678')
+            'name' => env('ADMIN_NAME', 'Admin'),
+            'email' => env('ADMIN_EMAIL', 'Admin@gmail.com'),
+            'password' => env('ADMIN_PASSWORD', bcrypt('12345678'))
         ]);
 
-        for($i = 1; $i <= 10; $i++){
-            Post::factory(1)->create([
-                'user_id' => $user->id
-            ]);
 
-            Image::factory(1)->create([
-                'imageable_id' => $i,
-                'imageable_type' => Post::class
-            ]);
-        }
+        // TODO: si quieres generar datos de prueba de todas las tablas descomenta estas lineas
+        // for($i = 1; $i <= 10; $i++){
+        //     Post::factory(1)->create([
+        //         'user_id' => $user->id
+        //     ]);
 
-        for($i = 1; $i <= 10; $i++){
-            Category::factory(1)->create();
+        //     Image::factory(1)->create([
+        //         'imageable_id' => $i,
+        //         'imageable_type' => Post::class
+        //     ]);
+        // }
 
-            Image::factory(rand(1, 3))->create([
-                'imageable_id' => $i,
-                'imageable_type' => Category::class
-            ]);
-        }
+        // for($i = 1; $i <= 10; $i++){
+        //     Category::factory(1)->create();
 
-        for($i = 1; $i <= 10; $i++){
-            Plan::factory(1)->create();
-            Feature::factory(rand(1,5))->create([
-                'plan_id' => $i
-            ]);
-        }
+        //     Image::factory(rand(1, 3))->create([
+        //         'imageable_id' => $i,
+        //         'imageable_type' => Category::class
+        //     ]);
+        // }
 
-        Mail::factory(10)->create();
-        Preference::factory(1)->create();
+        // for($i = 1; $i <= 10; $i++){
+        //     Plan::factory(1)->create();
+        //     Feature::factory(rand(1,5))->create([
+        //         'plan_id' => $i
+        //     ]);
+        // }
 
-        for($i = 0; $i < 10; $i++){
-            if($i == 0){
-                Card::factory(1)->create([
-                    'isImage' => true
-                ]);
-                Image::factory(1)->create([
-                    'imageable_id' => $i,
-                    'imageable_type' => Card::class
-                ]);
-            }else{
-                Card::factory(1)->create([
-                    'isImage' => false
-                ]);
-            }
-        }
+        // Mail::factory(10)->create();
+        // Preference::factory(1)->create();
+
+        // for($i = 0; $i < 10; $i++){
+        //     if($i == 0){
+        //         Card::factory(1)->create([
+        //             'isImage' => true
+        //         ]);
+        //         Image::factory(1)->create([
+        //             'imageable_id' => $i,
+        //             'imageable_type' => Card::class
+        //         ]);
+        //     }else{
+        //         Card::factory(1)->create([
+        //             'isImage' => false
+        //         ]);
+        //     }
+        // }
     }
 }
