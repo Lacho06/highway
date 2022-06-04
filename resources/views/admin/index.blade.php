@@ -139,7 +139,6 @@
         $heads = [
             'ID',
             'Title',
-            // ['label' => 'Text', 'width' => 40],
             ['label' => 'Actions', 'no-export' => true, 'width' => 5],
         ];
     @endphp
@@ -153,7 +152,8 @@
                 <a href="{{route('card.create')}}">
                     <x-adminlte-button label="Create Card" theme="info" />
                 </a>
-                <x-adminlte-button id="btnDeleteAllCards" label="Delete All Card" theme="danger" />
+                <x-adminlte-button id="btnDeleteCardsSelected" label="Delete Cards Selected" theme="warning" />
+                <x-adminlte-button id="btnDeleteAllCards" label="Delete All Cards" theme="danger" />
                 <form action="{{route('card.deleteAll')}}" method="post" class="d-none form-deleteAllCards">
                     @csrf @method("DELETE")
                     <button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" id="btn-delete" title="Delete All">
@@ -163,42 +163,42 @@
             </div>
         </div>
 
-        <x-adminlte-datatable id="table1" :heads="$heads">
-            @forelse($cards as $card)
-                {!! Form::open(['route' => ['card.destroy', $card], 'method' => 'delete', 'class' => '']) !!}
-                <tr>
-                    <td>
-                        {{$card->id}}
-                    </td>
-                    <td>{{$card->title}}</td>
-                    {!! Form::hidden('card_id', $card->id) !!}
-                    {{-- <td>{{$card->text}}</td> --}}
-                    <td>
-                        <nobr>
-                            <a href="{{route('card.edit', $card)}}" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
-                                <i class="fa fa-lg fa-fw fa-pen"></i>
-                            </a>
-                            <form action="{{route('card.destroy', $card)}}" method="post" class="d-inline form-delete">
-                                @csrf @method("DELETE")
-                                <button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" id="btn-delete" title="Delete">
-                                    <i class="fa fa-lg fa-fw fa-trash"></i>
-                                </button>
-                            </form>
-                            <a href="{{route('card.show', $card->id)}}" class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
-                                <i class="fa fa-lg fa-fw fa-eye"></i>
-                            </a>
-                        </nobr>
-                    </td>
-                </tr>
-                {!! Form::close() !!}
-            @empty
-                <tr>
-                    <td></td>
-                    <td>There are no cards to show</td>
-                    <td></td>
-                </tr>
-            @endforelse
-        </x-adminlte-datatable>
+        <form action="{{route('card.deleteSelected')}}" id="form-delete-card" method="POST">
+            @csrf
+            <x-adminlte-datatable id="table1" :heads="$heads">
+                @forelse($cards as $card)
+                    <tr>
+                        <td>
+                            <input type="checkbox" value="{{$card->id}}" id="{{$card->id}}" name="cardsSelected[]">
+                            {{$card->id}}
+                        </td>
+                        <td>{{$card->title}}</td>
+                        <td>
+                            <nobr>
+                                <a href="{{route('card.edit', $card)}}" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
+                                    <i class="fa fa-lg fa-fw fa-pen"></i>
+                                </a>
+                                {{-- <form action="{{route('card.destroy', $card)}}" method="post" class="d-inline form-delete">
+                                    @csrf @method("DELETE")
+                                    <button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" id="btn-delete" title="Delete">
+                                        <i class="fa fa-lg fa-fw fa-trash"></i>
+                                    </button>
+                                </form> --}}
+                                <a href="{{route('card.show', $card->id)}}" class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
+                                    <i class="fa fa-lg fa-fw fa-eye"></i>
+                                </a>
+                            </nobr>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td></td>
+                        <td>There are no cards to show</td>
+                        <td></td>
+                    </tr>
+                @endforelse
+            </x-adminlte-datatable>
+        </form>
 
 
     <h2>Received Emails</h2>
@@ -216,6 +216,7 @@
             {{$mails->links()}}
         </div>
         <div>
+            <x-adminlte-button id="btnDeleteMailsSelected" label="Delete Mails Selected" theme="warning" />
             <x-adminlte-button id="btnDeleteAllMails" label="Delete All Mails" theme="danger" />
             <form action="{{route('mail.deleteAll')}}" method="post" class="d-none form-deleteAllMails">
                 @csrf @method("DELETE")
@@ -225,39 +226,64 @@
             </form>
         </div>
     </div>
-    <x-adminlte-datatable id="table1" :heads="$heads">
-        @forelse($mails as $mail)
-            <tr>
-                <td>{{$mail->id}}</td>
-                <td>{{$mail->name}}</td>
-                <td>{{$mail->user_email}}</td>
-                <td>
-                    <nobr>
-                        <form action="{{route('mail.destroy', $mail)}}" method="post" class="d-inline form-email-delete">
-                            @csrf @method("DELETE")
-                            <button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" id="btn-delete" title="Delete">
-                                <i class="fa fa-lg fa-fw fa-trash"></i>
-                            </button>
-                        </form>
-                        <a href="{{route('mail.show', $mail->id)}}" class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
-                            <i class="fa fa-lg fa-fw fa-eye"></i>
-                        </a>
-                    </nobr>
-                </td>
-            </tr>
-        @empty
-            <tr>
-                <td></td>
-                <td>There are no emails to show</td>
-                <td></td>
-            </tr>
-        @endforelse
-    </x-adminlte-datatable>
+    <form action="{{route('mail.deleteSelected')}}" method="post" id="form-delete-mail">
+        @csrf
+        <x-adminlte-datatable id="table1" :heads="$heads">
+            @forelse($mails as $mail)
+                <tr>
+                    <td>
+                        <input type="checkbox" value="{{$mail->id}}" id="{{$mail->id}}" name="mailsSelected[]">
+                        {{$mail->id}}
+                    </td>
+                    <td>{{$mail->name}}</td>
+                    <td>{{$mail->user_email}}</td>
+                    <td>
+                        <nobr>
+                            <form action="{{route('mail.destroy', $mail)}}" method="post" class="d-inline form-email-delete">
+                                @csrf @method("DELETE")
+                                <button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" id="btn-delete" title="Delete">
+                                    <i class="fa fa-lg fa-fw fa-trash"></i>
+                                </button>
+                            </form>
+                            <a href="{{route('mail.show', $mail->id)}}" class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
+                                <i class="fa fa-lg fa-fw fa-eye"></i>
+                            </a>
+                        </nobr>
+                    </td>
+                </tr>
+            @empty
+                <tr>
+                    <td></td>
+                    <td>There are no emails to show</td>
+                    <td></td>
+                </tr>
+            @endforelse
+        </x-adminlte-datatable>
+    </form>
 
 @stop
 @section('js')
     <!-- TODO: cuando ejecute npm run dev quitar el cdn -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <script>
+        const btnCard = document.getElementById('btnDeleteCardsSelected');
+        const formCard = document.getElementById('form-delete-card');
+        btnCard.addEventListener('click', function (e){
+            formCard.submit();
+        });
+
+    </script>
+
+    <script>
+        const btnMail = document.getElementById('btnDeleteMailsSelected');
+        const formMail = document.getElementById('form-delete-mail');
+        btnMail.addEventListener('click', function (e){
+            formMail.submit();
+        });
+
+    </script>
 
     <script>
 
@@ -389,6 +415,26 @@
             Swal.fire(
                 'Deleted!',
                 'Your card has been deleted.',
+                'success'
+            )
+        </script>
+    @endif
+
+    @if (session('customMessage') == 'Cards Selected Deleted')
+        <script>
+            Swal.fire(
+                'Deleted!',
+                'Your selection has been deleted.',
+                'success'
+            )
+        </script>
+    @endif
+
+    @if (session('customMessage') == 'Mails Selected Deleted')
+        <script>
+            Swal.fire(
+                'Deleted!',
+                'Your selection has been deleted.',
                 'success'
             )
         </script>

@@ -121,4 +121,15 @@ class CategoryController extends Controller
         return back()->with('customMessage', 'All Categories Deleted');
     }
 
+    public function deleteSelected(Request $request){
+        $selected = $request->categoriesSelected;
+
+        foreach($selected as $i){
+            $categoryDeleted = Category::where('id', $i)->first();
+            $categoryDeleted->delete();
+        }
+        return back()->with('customMessage', 'Categories Selected Deleted');
+
+    }
+
 }

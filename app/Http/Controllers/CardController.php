@@ -119,4 +119,14 @@ class CardController extends Controller
 
         return back()->with('customMessage', 'All Cards Deleted');
     }
+
+    public function deleteSelected(Request $request){
+        $selected = $request->cardsSelected;
+
+        foreach($selected as $i){
+            $cardDeleted = Card::where('id', $i)->first();
+            $cardDeleted->delete();
+        }
+        return back()->with('customMessage', 'Cards Selected Deleted');
+    }
 }

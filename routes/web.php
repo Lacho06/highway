@@ -27,6 +27,8 @@ Route::get('blog', [PostController::class, 'viewBlog'])->name('blog');
 
 Route::get('single-post/{id}', [PostController::class, 'viewSinglePost'])->name('single-post');
 
+Route::post('admin/mail/deleteSelected', [MailController::class, 'deleteSelected'])->middleware('auth')->name('mail.deleteSelected');
+
 Route::delete('admin/mail/deleteAll', [MailController::class, 'deleteAll'])->middleware('auth')->name('mail.deleteAll');
 
 Route::get('admin/mail', [AdminController::class, 'notFound'])->middleware('verbHttp')->middleware('auth')->name('mail.store');
@@ -49,9 +51,13 @@ Route::post('admin/category/image', [CategoryController::class, 'addImage'])->mi
 
 Route::delete('admin/category/image/{image}', [CategoryController::class, 'deleteImage'])->middleware('auth')->name('category.deleteImage');
 
+Route::post('admin/category/deleteSelected', [CategoryController::class, 'deleteSelected'])->middleware('auth')->name('category.deleteSelected');
+
 Route::delete('admin/category/deleteAll', [CategoryController::class, 'deleteAll'])->middleware('auth')->name('category.deleteAll');
 
 Route::resource('admin/category', CategoryController::class)->middleware('auth')->names('category');
+
+Route::post('admin/post/deleteSelected', [PostController::class, 'deleteSelected'])->middleware('auth')->name('post.deleteSelected');
 
 Route::delete('admin/post/deleteAll', [PostController::class, 'deleteAll'])->middleware('auth')->name('post.deleteAll');
 
@@ -63,6 +69,8 @@ Route::post('admin/plan/feature', [PlanController::class, 'addFeature'])->middle
 
 Route::delete('admin/plan/feature/{feature}', [PlanController::class, 'deleteFeature'])->middleware('auth')->name('plan.deleteFeature');
 
+Route::post('admin/plan/deleteSelected', [PlanController::class, 'deleteSelected'])->middleware('auth')->name('plan.deleteSelected');
+
 Route::delete('admin/plan/deleteAll', [PlanController::class, 'deleteAll'])->middleware('auth')->name('plan.deleteAll');
 
 Route::resource('admin/plan', PlanController::class)->middleware('auth')->names('plan');
@@ -72,6 +80,8 @@ Route::post('admin/cardImage', [CardController::class, 'storeImage'])->middlewar
 Route::put('admin/cardImage/{card}', [CardController::class, 'updateImage'])->middleware('auth')->name('cardImage.update');
 
 Route::delete('admin/card/deleteAll', [CardController::class, 'deleteAll'])->middleware('auth')->name('card.deleteAll');
+
+Route::post('admin/card/deleteSelected', [CardController::class, 'deleteSelected'])->middleware('auth')->name('card.deleteSelected');
 
 Route::resource('admin/card', CardController::class)->except('index')->middleware('auth')->names('card');
 

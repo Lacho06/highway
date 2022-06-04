@@ -141,4 +141,15 @@ class PostController extends Controller
         return back()->with('customMessage', 'All Posts Deleted');
     }
 
+    public function deleteSelected(Request $request){
+        $selected = $request->postsSelected;
+
+        foreach($selected as $i){
+            $postDeleted = Post::where('id', $i)->first();
+            $postDeleted->delete();
+        }
+        return back()->with('customMessage', 'Posts Selected Deleted');
+
+    }
+
 }

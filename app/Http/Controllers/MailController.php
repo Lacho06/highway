@@ -33,4 +33,14 @@ class MailController extends Controller
 
         return back()->with('customMessage', 'All Mails Deleted');
     }
+
+    public function deleteSelected(Request $request){
+        $selected = $request->mailsSelected;
+
+        foreach($selected as $i){
+            $mailDeleted = Mail::where('id', $i)->first();
+            $mailDeleted->delete();
+        }
+        return back()->with('customMessage', 'Mails Selected Deleted');
+    }
 }

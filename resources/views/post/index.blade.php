@@ -10,7 +10,7 @@
         $heads = [
             'ID',
             'Title',
-            ['label' => 'Text', 'width' => 40],
+            // ['label' => 'Text', 'width' => 40],
             ['label' => 'Actions', 'no-export' => true, 'width' => 5],
         ];
     @endphp
@@ -18,39 +18,48 @@
         <div>
             {{$posts->links()}}
         </div>
-        <x-adminlte-button id="btnDeleteAllPosts" label="Delete All Posts" theme="danger" />
-        <form action="{{route('post.deleteAll')}}" method="post" class="d-none form-deleteAllPosts">
-            @csrf @method("DELETE")
-            <button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" id="btn-delete" title="Delete All">
-                <i class="fa fa-lg fa-fw fa-trash"></i>
-            </button>
-        </form>
+        <div>
+            <x-adminlte-button id="btnDeletePostsSelected" label="Delete Posts Selected" theme="warning" />
+            <x-adminlte-button id="btnDeleteAllPosts" label="Delete All Posts" theme="danger" />
+            <form action="{{route('post.deleteAll')}}" method="post" class="d-none form-deleteAllPosts">
+                @csrf @method("DELETE")
+                <button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" id="btn-delete" title="Delete All">
+                    <i class="fa fa-lg fa-fw fa-trash"></i>
+                </button>
+            </form>
+        </div>
     </div>
-    <x-adminlte-datatable id="table1" :heads="$heads">
-        @foreach($posts as $post)
-            <tr>
-                <td>{{$post->id}}</td>
-                <td>{{$post->title}}</td>
-                <td style="text-overflow: ellipsis;">{{$post->text}}</td>
-                <td>
-                    <nobr>
-                        <a href="{{route('post.edit', $post)}}" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
-                            <i class="fa fa-lg fa-fw fa-pen"></i>
-                        </a>
-                        <form action="{{route('post.destroy', $post)}}" method="post" class="d-inline form-delete">
-                            @csrf @method("DELETE")
-                            <button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" id="btn-delete" title="Delete">
-                                <i class="fa fa-lg fa-fw fa-trash"></i>
-                            </button>
-                        </form>
-                        <a href="{{route('post.show', $post->id)}}" class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
-                            <i class="fa fa-lg fa-fw fa-eye"></i>
-                        </a>
-                    </nobr>
-                </td>
-            </tr>
-        @endforeach
-    </x-adminlte-datatable>
+    <form action="{{route('post.deleteSelected')}}" method="post" id="form-delete-post">
+        @csrf
+        <x-adminlte-datatable id="table1" :heads="$heads">
+            @foreach($posts as $post)
+                <tr>
+                    <td>
+                        <input type="checkbox" value="{{$post->id}}" id="{{$post->id}}" name="postsSelected[]">
+                        {{$post->id}}
+                    </td>
+                    <td>{{$post->title}}</td>
+                    {{-- <td style="text-overflow: ellipsis;">{{$post->text}}</td> --}}
+                    <td>
+                        <nobr>
+                            <a href="{{route('post.edit', $post)}}" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
+                                <i class="fa fa-lg fa-fw fa-pen"></i>
+                            </a>
+                            {{-- <form action="{{route('post.destroy', $post)}}" method="post" class="d-inline form-delete">
+                                @csrf @method("DELETE")
+                                <button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" id="btn-delete" title="Delete">
+                                    <i class="fa fa-lg fa-fw fa-trash"></i>
+                                </button>
+                            </form> --}}
+                            <a href="{{route('post.show', $post->id)}}" class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
+                                <i class="fa fa-lg fa-fw fa-eye"></i>
+                            </a>
+                        </nobr>
+                    </td>
+                </tr>
+            @endforeach
+        </x-adminlte-datatable>
+    </form>
 
 
 @stop
@@ -91,6 +100,16 @@
         </script>
     @endif
 
+    @if (session('customMessage') == 'Posts Selected Deleted')
+        <script>
+            Swal.fire(
+                'Deleted!',
+                'Your selection has been deleted.',
+                'success'
+            )
+        </script>
+    @endif
+
     <script>
         $('.form-delete').submit(function(e){
             e.preventDefault();
@@ -107,6 +126,15 @@
                     this.submit();
                 }
             })
+        });
+
+    </script>
+
+    <script>
+        const btnPost = document.getElementById('btnDeletePostsSelected');
+        const formPost = document.getElementById('form-delete-post');
+        btnPost.addEventListener('click', function (e){
+            formPost.submit();
         });
 
     </script>

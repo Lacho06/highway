@@ -82,4 +82,14 @@ class PlanController extends Controller
         return back()->with('customMessage', 'All Plans Deleted');
     }
 
+    public function deleteSelected(Request $request){
+        $selected = $request->plansSelected;
+
+        foreach($selected as $i){
+            $planDeleted = Plan::where('id', $i)->first();
+            $planDeleted->delete();
+        }
+        return back()->with('customMessage', 'Plans Selected Deleted');
+    }
+
 }
