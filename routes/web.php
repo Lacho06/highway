@@ -47,11 +47,11 @@ Route::post('admin/preference', [PreferenceController::class, 'store'])->middlew
 
 Route::put('admin/preference/{preference}', [PreferenceController::class, 'update'])->middleware('auth')->name('preference.update');
 
+Route::post('admin/category/deleteSelected', [CategoryController::class, 'deleteSelected'])->middleware('auth')->name('category.deleteSelected');
+
 Route::post('admin/category/image', [CategoryController::class, 'addImage'])->middleware('auth')->name('category.addImage');
 
 Route::delete('admin/category/image/{image}', [CategoryController::class, 'deleteImage'])->middleware('auth')->name('category.deleteImage');
-
-Route::post('admin/category/deleteSelected', [CategoryController::class, 'deleteSelected'])->middleware('auth')->name('category.deleteSelected');
 
 Route::delete('admin/category/deleteAll', [CategoryController::class, 'deleteAll'])->middleware('auth')->name('category.deleteAll');
 

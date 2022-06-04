@@ -45,12 +45,12 @@
                             <a href="{{route('category.edit', $category)}}" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
                                 <i class="fa fa-lg fa-fw fa-pen"></i>
                             </a>
-                            <form action="{{route('category.destroy', $category)}}" method="post" class="d-inline form-delete">
+                            {{-- <form action="{{route('category.destroy', $category)}}" method="post" class="d-inline form-delete">
                                 @csrf @method("DELETE")
                                 <button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" id="btn-delete" title="Delete">
                                     <i class="fa fa-lg fa-fw fa-trash"></i>
                                 </button>
-                            </form>
+                            </form> --}}
                             <a href="{{route('category.show', $category->id)}}" class="btn btn-xs btn-default text-teal mx-1 shadow" title="Details">
                                 <i class="fa fa-lg fa-fw fa-eye"></i>
                             </a>
