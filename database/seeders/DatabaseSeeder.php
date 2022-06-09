@@ -29,9 +29,9 @@ class DatabaseSeeder extends Seeder
         Storage::makeDirectory('/storage/images/');
 
         $user = User::create([
-            'name' => env('ADMIN_NAME', 'Admin'),
-            'email' => env('ADMIN_EMAIL', 'Admin@gmail.com'),
-            'password' => env('ADMIN_PASSWORD', bcrypt('12345678'))
+            'name' => 'Admin',
+            'email' => 'Admin@gmail.com',
+            'password' => bcrypt('12345678')
         ]);
 
 
