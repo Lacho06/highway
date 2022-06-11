@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\Mail as FacadesMail;
 
 class MailController extends Controller
 {
+
+    public function index(){
+        $mails = Mail::paginate(5);
+        $data = Mail::select('*')->first();
+        return view('mail.index', compact('mails', 'data'));
+    }
+
     public function store(Request $request){
         $mail = Mail::find($request->mail);
         FacadesMail::to(env('MAIL_FROM_ADDRESS'))->send(new ResponseMailable($mail));

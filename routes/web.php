@@ -29,9 +29,9 @@ Route::get('single-post/{id}', [PostController::class, 'viewSinglePost'])->name(
 
 Route::post('admin/mail/deleteSelected', [MailController::class, 'deleteSelected'])->middleware('auth')->name('mail.deleteSelected');
 
-Route::delete('admin/mail/deleteAll', [MailController::class, 'deleteAll'])->middleware('auth')->name('mail.deleteAll');
+Route::get('admin/mail', [MailController::class, 'index'])->middleware('auth')->name('mail.index');
 
-Route::get('admin/mail', [AdminController::class, 'notFound'])->middleware('verbHttp')->middleware('auth')->name('mail.store');
+Route::delete('admin/mail/deleteAll', [MailController::class, 'deleteAll'])->middleware('auth')->name('mail.deleteAll');
 
 Route::post('admin/mail', [MailController::class, 'store'])->middleware('auth')->name('mail.store');
 
@@ -74,6 +74,8 @@ Route::post('admin/plan/deleteSelected', [PlanController::class, 'deleteSelected
 Route::delete('admin/plan/deleteAll', [PlanController::class, 'deleteAll'])->middleware('auth')->name('plan.deleteAll');
 
 Route::resource('admin/plan', PlanController::class)->middleware('auth')->names('plan');
+
+Route::get('admin/cardAbout', [CardController::class, 'cardAbout'])->middleware('auth')->name('card.about');
 
 Route::post('admin/cardImage', [CardController::class, 'storeImage'])->middleware('auth')->name('cardImage.store');
 

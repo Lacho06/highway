@@ -249,17 +249,27 @@ return [
             // 'label'       => 4,
             // 'label_color' => 'success',
         ],
+        [
+            'text' => 'About section',
+            'route'  => 'card.about',
+            // 'icon' => 'fab fa-fw fa-buffer',
+        ],
+        [
+            'text' => 'Emails received',
+            'route'  => 'mail.index',
+            // 'icon' => 'fab fa-fw fa-buffer',
+        ],
         ['header' => 'Categories'],
         [
             'text' => 'See all categories',
             'route'  => 'category.index',
-            'icon' => 'fab fa-fw fa-buffer',
+            // 'icon' => 'fab fa-fw fa-buffer',
         ],
-        [
-            'text' => 'Create category',
-            'route'  => 'category.create',
-            'icon' => 'far fa-fw fa-bookmark',
-        ],
+        // [
+        //     'text' => 'Create category',
+        //     'route'  => 'category.create',
+        //     'icon' => 'far fa-fw fa-bookmark',
+        // ],
         // [
         //     'text' => 'More Options',
         //     'icon' => 'fas fa-fw fa-share',
@@ -275,28 +285,28 @@ return [
 
         //     ]
         // ],
-        ['header' => 'Posts'],
+        ['header' => 'Blog'],
         [
-            'text' => 'See all posts',
+            'text' => 'See all articles',
             'route'  => 'post.index',
-            'icon' => 'fas fa-fw fa-user',
+            // 'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text' => 'Create post',
+            'text' => 'Create article',
             'route'  => 'post.create',
-            'icon' => 'fas fa-fw fa-lock',
+            // 'icon' => 'fas fa-fw fa-lock',
         ],
         ['header' => 'Plans'],
         [
             'text'       => 'See all plans',
-            'icon_color' => 'red',
+            // 'icon_color' => 'red',
             'route'        => 'plan.index',
         ],
-        [
-            'text'       => 'Create plan',
-            'icon_color' => 'yellow',
-            'route'        => 'plan.create',
-        ],
+        // [
+        //     'text'       => 'Create plan',
+        //     'icon_color' => 'yellow',
+        //     'route'        => 'plan.create',
+        // ],
         // [
         //     'text'       => 'information',
         //     'icon_color' => 'cyan',

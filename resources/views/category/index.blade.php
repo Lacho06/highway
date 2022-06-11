@@ -10,7 +10,7 @@
         $heads = [
             'ID',
             'Title',
-            ['label' => 'Subtitle', 'width' => 40],
+            // ['label' => 'Subtitle', 'width' => 40],
             ['label' => 'Actions', 'no-export' => true, 'width' => 5],
         ];
     @endphp
@@ -19,8 +19,13 @@
             {{$categories->links()}}
         </div>
         <div>
-            <x-adminlte-button id="btnDeleteCategoriesSelected" label="Delete Categories Selected" theme="warning" />
-            <x-adminlte-button id="btnDeleteAllCategories" label="Delete All Categories" theme="danger" />
+            <a href="{{route('category.create')}}">
+                <x-adminlte-button label="Create Card" theme="info" />
+            </a>
+            @empty(!$data)
+                <x-adminlte-button id="btnDeleteCategoriesSelected" label="Delete Categories Selected" theme="warning" />
+                <x-adminlte-button id="btnDeleteAllCategories" label="Delete All Categories" theme="danger" />
+            @endempty
             <form action="{{route('category.deleteAll')}}" method="post" class="d-none form-deleteAllCategories">
                 @csrf @method("DELETE")
                 <button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" id="btn-delete" title="Delete All">
@@ -32,14 +37,14 @@
     <form action="{{route('category.deleteSelected')}}" method="post" id="form-delete-category">
         @csrf
         <x-adminlte-datatable id="table1" :heads="$heads">
-            @foreach($categories as $category)
+            @forelse($categories as $category)
                 <tr>
                     <td>
                         <input type="checkbox" value="{{$category->id}}" id="{{$category->id}}" name="categoriesSelected[]">
                         {{$category->id}}
                     </td>
                     <td>{{$category->title}}</td>
-                    <td>{{$category->subtitle}}</td>
+                    {{-- <td>{{$category->subtitle}}</td> --}}
                     <td>
                         <nobr>
                             <a href="{{route('category.edit', $category)}}" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
@@ -57,7 +62,13 @@
                         </nobr>
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td></td>
+                    <td>There are no categories to show</td>
+                    <td></td>
+                </tr>
+            @endforelse
         </x-adminlte-datatable>
     </form>
 

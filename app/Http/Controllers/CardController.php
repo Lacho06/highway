@@ -129,4 +129,10 @@ class CardController extends Controller
         }
         return back()->with('customMessage', 'Cards Selected Deleted');
     }
+
+    public function cardAbout(){
+        $cardImage = Card::where('isImage', 1)->first();
+
+        return view('card.about', compact('cardImage'));
+    }
 }

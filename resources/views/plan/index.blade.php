@@ -19,8 +19,13 @@
             {{$plans->links()}}
         </div>
         <div>
-            <x-adminlte-button id="btnDeletePlansSelected" label="Delete Plans Selected" theme="warning" />
-            <x-adminlte-button id="btnDeleteAllPlans" label="Delete All Plans" theme="danger" />
+            <a href="{{route('plan.create')}}">
+                <x-adminlte-button label="Create Card" theme="info" />
+            </a>
+            @empty(!$data)
+                <x-adminlte-button id="btnDeletePlansSelected" label="Delete Plans Selected" theme="warning" />
+                <x-adminlte-button id="btnDeleteAllPlans" label="Delete All Plans" theme="danger" />
+            @endempty
             <form action="{{route('plan.deleteAll')}}" method="post" class="d-none form-deleteAllPlans">
                 @csrf @method("DELETE")
                 <button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" id="btn-delete" title="Delete All">
@@ -32,7 +37,7 @@
     <form action="{{route('plan.deleteSelected')}}" method="post" id="form-delete-plan">
         @csrf
         <x-adminlte-datatable id="table1" :heads="$heads">
-            @foreach($plans as $plan)
+            @forelse($plans as $plan)
                 <tr>
                     <td>
                         <input type="checkbox" value="{{$plan->id}}" id="{{$plan->id}}" name="plansSelected[]">
@@ -57,7 +62,13 @@
                         </nobr>
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td></td>
+                    <td>There are no plans to show</td>
+                    <td></td>
+                </tr>
+            @endforelse
         </x-adminlte-datatable>
     </form>
 

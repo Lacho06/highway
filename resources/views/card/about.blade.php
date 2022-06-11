@@ -1,0 +1,93 @@
+@extends('adminlte::page')
+@section('title', 'Highway - Admin')
+@section('content_header')
+    <div class="mt-1"></div>
+@stop
+@section('content')
+
+    <h2>Card About</h2>
+    <h6>In this section is the information that is displayed in the about view.</h6>
+    <hr>
+
+    @if ($cardImage != null)
+        {!! Form::model($cardImage, ['route' => ['cardImage.update', $cardImage], 'method' => 'put', 'files' => true, 'class' => '']) !!}
+            {!! Form::label('title', 'Title') !!}
+            <small class="d-inline h6 text-danger">*</small>
+            <x-adminlte-input name="title" enable-old-support value="{{$cardImage->title}}" placeholder="Title"/>
+            {!! Form::label('text', 'Text') !!}
+            <small class="d-inline h6 text-danger">*</small>
+            <x-adminlte-input name="text" enable-old-support value="{{$cardImage->text}}" placeholder="Text"/>
+            <div class="d-flex justify-content-between">
+                <div class="d-flex flex-column">
+                    {!! Form::label('cover_image', 'Image') !!}
+                    <x-adminlte-input-file id="input_image" name="cover_image" igroup-size="sm" placeholder="Choose a image...">
+                        <x-slot name="prependSlot">
+                            <div class="input-group-text bg-lightblue">
+                                <i class="fas fa-upload"></i>
+                            </div>
+                        </x-slot>
+                    </x-adminlte-input-file>
+                    <x-adminlte-button label="Update" class="px-5 mr-auto" type="submit" theme="success" icon="fas fa-key"/>
+                </div>
+                @if ($cardImage->cover_image != null)
+                    <img id="image" src="{{Storage::url($cardImage->cover_image)}}" width="200" alt="Cover Image">
+                @else
+                    <img id="image" src="" width="200" alt="Cover Image">
+                @endif
+            </div>
+
+        {!! Form::close() !!}
+
+    @else
+
+        {!! Form::open(['route' => 'cardImage.store', 'files' => true, 'class' => '']) !!}
+            {!! Form::label('title', 'Title') !!}
+            <small class="d-inline h6 text-danger">*</small>
+            <x-adminlte-input name="title" enable-old-support placeholder="Title"/>
+            {!! Form::label('text', 'Text') !!}
+            <small class="d-inline h6 text-danger">*</small>
+            <x-adminlte-input name="text" enable-old-support placeholder="Text"/>
+            <div class="d-flex justify-content-between">
+                <div class="d-flex flex-column">
+                    <div>
+                        {!! Form::label('cover_image', 'Image') !!}
+                        <small class="d-inline h6 text-danger">*</small>
+                    </div>
+                    <x-adminlte-input-file id="input_image" enable-old-support name="cover_image" igroup-size="sm" placeholder="Choose a image...">
+                        <x-slot name="prependSlot">
+                            <div class="input-group-text bg-lightblue">
+                                <i class="fas fa-upload"></i>
+                            </div>
+                        </x-slot>
+                    </x-adminlte-input-file>
+                    <x-adminlte-button label="Create" class="px-5 mr-auto" type="submit" theme="success" icon="fas fa-key"/>
+                </div>
+                <img id="image" src="" width="200" alt="Cover Image">
+            </div>
+
+        {!! Form::close() !!}
+    @endif
+
+
+@stop
+@section('js')
+    <!-- TODO: cuando ejecute npm run dev quitar el cdn -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+
+        const input_image = document.getElementById('input_image')
+        input_image.addEventListener('change', changeImage)
+
+        function changeImage(e){
+            const file = e.target.files[0]
+            const reader = new FileReader()
+            reader.onload = (e) => {
+                document.getElementById('image').setAttribute('src', e.target.result)
+            }
+            reader.readAsDataURL(file)
+        }
+
+    </script>
+
+@stop

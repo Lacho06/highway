@@ -21,8 +21,9 @@ class PlanController extends Controller
 
     public function index(){
         $plans = Plan::paginate(10);
+        $data = Plan::all()->first();
 
-        return view('plan.index', compact('plans'));
+        return view('plan.index', compact('plans', 'data'));
     }
 
     public function create(){
