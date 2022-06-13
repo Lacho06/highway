@@ -33,7 +33,9 @@ class PreferenceRequest extends FormRequest
     public function messages()
     {
         return [
-            'main_video.max' => "Maximum file size to upload is 50MB."
+            'main_video.max' => "Maximum file size to upload is 50MB.",
+            'main_video.file' => "The main video must be a file",
+            'main_video.required' => "The video field cannot be empty"
         ];
     }
 }

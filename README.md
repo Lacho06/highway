@@ -22,8 +22,6 @@ MAIL_FROM_NAME="${APP_NAME}"
 
 <p>Ejecute en la terminal el comando <b>php artisan migrate --seed</b> para migrar las tablas de su base de datos y ademas generar el usuario admin del sitio, si ademas desea generar datos falsos para todas las tablas de su base de datos, debe descomentar las lineas de codigo que se indican en el archivo <i>DatabaseSeeder.php</i> de su proyecto Laravel.</p>
 <p>Ejecute el comando <b>php artisan storage:link</b> para crear el enlace hacia la carpeta storage en la ruta correspondiente</p>
-<p>Ejecute el comando <b>composer require jeroennoten/laravel-adminlte</b></p>
 <p>Ejecute el comando <b>php artisan adminlte:install</b></p>
-<p>Ejecute el comando <b>composer require laravel/ui</b></p>
 <p>Ejecute el comando <b>php artisan ui bootstrap --auth</b></p>
 <p>Ejecute el comando <b>php artisan vendor:publish --tag=laravel-pagination</b></p>
