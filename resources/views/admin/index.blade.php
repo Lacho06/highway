@@ -75,6 +75,12 @@
         @endif
     </div>
 
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <div class="alert alert-danger">{{ $error }}</div>
+        @endforeach
+    @endif
+
     <h2 class="mt-5">Cards</h2>
     <h6>These are the cards that will be displayed in the about view.</h6>
     <hr>

@@ -58,7 +58,7 @@ https://templatemo.com/tm-520-highway
         </div>
         <video autoplay="" loop="" muted>
             @if ($preference != null && $preference->main_video != null)
-                <source src="{{Storage::url($preference->main_video)}}" type="video/mp4" />
+                <source src="{{asset($preference->main_video)}}" type="video/mp4" />
             @else
         	    <source src="{{asset('template/highway-loop.mp4')}}" type="video/mp4" />
             @endif

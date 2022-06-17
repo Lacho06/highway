@@ -20,7 +20,7 @@
         </div>
         <div>
             <a href="{{route('category.create')}}">
-                <x-adminlte-button label="Create Card" theme="info" />
+                <x-adminlte-button label="Create Category" theme="info" />
             </a>
             @empty(!$data)
                 <x-adminlte-button id="btnDeleteCategoriesSelected" label="Delete Categories Selected" theme="warning" />

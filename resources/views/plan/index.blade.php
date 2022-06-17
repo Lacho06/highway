@@ -20,7 +20,7 @@
         </div>
         <div>
             <a href="{{route('plan.create')}}">
-                <x-adminlte-button label="Create Card" theme="info" />
+                <x-adminlte-button label="Create Plan" theme="info" />
             </a>
             @empty(!$data)
                 <x-adminlte-button id="btnDeletePlansSelected" label="Delete Plans Selected" theme="warning" />

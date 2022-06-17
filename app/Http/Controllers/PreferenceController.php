@@ -6,6 +6,7 @@ use App\Http\Requests\PreferenceRequest;
 use App\Models\Preference;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class PreferenceController extends Controller
 {
@@ -14,9 +15,11 @@ class PreferenceController extends Controller
         $request->validate([
             'main_title' => 'required',
             'main_subtitle' => 'required',
-            'main_video' => 'required|file|max:51200',
+            'main_video' => 'required|file|max:51200|mimes:mp4,mkv,avi,mpg',
             'nav_subtitle' => 'required'
         ]);
+
+
         if($request->file('main_video')){
             $url = Storage::put('video', $request->file('main_video'));
             Preference::create([

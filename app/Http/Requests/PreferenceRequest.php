@@ -26,7 +26,7 @@ class PreferenceRequest extends FormRequest
         return [
             'main_title' => 'required',
             'main_subtitle' => 'required',
-            'main_video' => 'file|max:51200'
+            'main_video' => 'file|max:51200|min:1|mimes:mp4,mkv,avi,mpg'
         ];
     }
 
