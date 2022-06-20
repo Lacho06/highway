@@ -331,7 +331,7 @@ https://templatemo.com/tm-520-highway
                       <a href="{{route('about')}}">About Us</a>
                   </li>
                   <li>
-                      <a href="{{route('blog')}}">Blog Entries</a>
+                      <a href="{{route('blog')}}">Blog</a>
                   </li>
                   {{-- <li>
                       <a href="#">Single Post</a>

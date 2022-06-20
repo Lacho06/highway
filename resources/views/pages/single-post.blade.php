@@ -246,13 +246,13 @@ https://templatemo.com/tm-520-highway
                       <a href="{{route('about')}}">About Us</a>
                   </li>
                   <li>
-                      <a href="{{route('blog')}}">Blog Entries</a>
+                      <a href="{{route('blog')}}">Blog</a>
                   </li>
                   {{-- <li>
                       <a href="{{route('single-post')}}">Single Post</a>
                   </li> --}}
               </ul>
-              @if ($preference->nav_subtitle)
+              @if ($preference)
                 <p>{{$preference->nav_subtitle}}</p>
               @else
                 <p>We create awesome templates for you.</p>
