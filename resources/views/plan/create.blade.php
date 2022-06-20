@@ -17,7 +17,7 @@
                 {!! Form::label('price', 'Price') !!}
                 <small class="d-inline h6 text-danger">*</small>
                 <x-adminlte-input name="price" type="number" enable-old-support placeholder="Price"/>
-                <x-adminlte-button label="Create" type="submit" theme="success" icon="fas fa-key"/>
+                <x-adminlte-button label="Create" type="submit" theme="success" />
             {!! Form::close() !!}
         </div>
     </div>

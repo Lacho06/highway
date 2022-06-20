@@ -31,7 +31,7 @@
                                 </div>
                             </x-slot>
                         </x-adminlte-input-file>
-                        <x-adminlte-button label="Update" class="px-5 mr-auto" type="submit" theme="success" icon="fas fa-key"/>
+                        <x-adminlte-button label="Update" class="px-5 mr-auto" type="submit" theme="success" />
                     </div>
                     @if ($preference->main_video != null)
                         <video id="video" src="{{Storage::url($preference->main_video)}}" width="200"></video>

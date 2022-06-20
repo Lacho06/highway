@@ -20,7 +20,7 @@
             <p><b>Price: </b><span class="h2">${{$plan->price}}</span></p>
             <div class="d-flex justify-content-between mb-3">
                 <h3 class="ml-2">Features</h3>
-                <x-adminlte-button class="mr-2" label="Add feature" id="btn-modal" theme="success" icon="fas fa-thumbs-up"/>
+                <x-adminlte-button class="mr-2" label="Add feature" id="btn-modal" theme="success" />
             </div>
             <x-adminlte-datatable id="table1" :heads="$heads">
                 @foreach($plan->features as $feature)

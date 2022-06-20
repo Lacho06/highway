@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-6">
                     <h3>Options</h3>
-                    <x-adminlte-button label="Update" id="btn-modal" theme="success" icon="fas fa-thumbs-up"/>
+                    <x-adminlte-button label="Update" id="btn-modal" theme="success" />
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 @section('title', 'Highway - Admin')
 @section('content_header')
-    <x-adminlte-button label="Add Image" id="btn-modal" theme="info" icon="fas fa-key"/>
+    <x-adminlte-button label="Add Image" id="btn-modal" theme="info" />
     <div class="mt-3"></div>
 @stop
 

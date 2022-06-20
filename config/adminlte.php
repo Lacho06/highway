@@ -252,18 +252,18 @@ return [
         [
             'text' => 'About section',
             'route'  => 'card.about',
-            // 'icon' => 'fab fa-fw fa-buffer',
+            'icon' => 'fas fa-address-card',
         ],
         [
             'text' => 'Emails received',
             'route'  => 'mail.index',
-            // 'icon' => 'fab fa-fw fa-buffer',
+            'icon' => 'fas fa-envelope',
         ],
         ['header' => 'Categories'],
         [
             'text' => 'See all categories',
             'route'  => 'category.index',
-            // 'icon' => 'fab fa-fw fa-buffer',
+            'icon' => 'fas fa-bars',
         ],
         // [
         //     'text' => 'Create category',
@@ -289,17 +289,17 @@ return [
         [
             'text' => 'See all articles',
             'route'  => 'post.index',
-            // 'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-newspaper',
         ],
         [
             'text' => 'Create article',
             'route'  => 'post.create',
-            // 'icon' => 'fas fa-fw fa-lock',
+            'icon' => 'fas fa-plus',
         ],
         ['header' => 'Plans'],
         [
             'text'       => 'See all plans',
-            // 'icon_color' => 'red',
+            'icon' => 'fas fa-ruler-combined',
             'route'        => 'plan.index',
         ],
         // [

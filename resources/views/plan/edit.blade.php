@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 @section('title', 'Highway - Admin')
 @section('content_header')
-    <x-adminlte-button label="Add Feature" id="btn-modal" theme="info" icon="fas fa-key"/>
+    <x-adminlte-button label="Add Feature" id="btn-modal" theme="info" />
     <div class="mt-3"></div>
 @stop
 @section('content')
@@ -18,7 +18,7 @@
                 {!! Form::label('price', 'Price') !!}
                 <small class="d-inline h6 text-danger">*</small>
                 <x-adminlte-input name="price" type="number" enable-old-support value="{{$plan->price}}" placeholder="Price"/>
-                <x-adminlte-button label="Update" type="submit" theme="success" icon="fas fa-key"/>
+                <x-adminlte-button label="Update" type="submit" theme="success" />
             {!! Form::close() !!}
 
         </div>

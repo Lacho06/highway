@@ -11,7 +11,7 @@
             <p>{{$mail->user_email}}</p>
             <p>{{$mail->message}}</p>
         </div>
-        <x-adminlte-button id="btn-modal" label="Response mail" theme="info" icon="fas fa-key"/>
+        <x-adminlte-button id="btn-modal" label="Response mail" theme="info" />
     </div>
 
 @stop

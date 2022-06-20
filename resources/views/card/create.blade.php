@@ -28,7 +28,7 @@
                                 </div>
                             </x-slot>
                         </x-adminlte-input-file>
-                        <x-adminlte-button class="mr-auto" label="Create" type="submit" theme="success" icon="fas fa-key"/>
+                        <x-adminlte-button class="mr-auto" label="Create" type="submit" theme="success"/>
                     </div>
                     <img id="image" src="" width="200" height="200" alt="Cover Image">
                 </div>
