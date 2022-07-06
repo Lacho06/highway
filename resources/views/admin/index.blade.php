@@ -5,13 +5,19 @@
 @stop
 @section('content')
 
+    <link
+    rel="stylesheet"
+    href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css"
+    type="text/css"
+    />
+
     <h2>Preferences</h2>
     <hr>
 
     <div class="col-12 d-flex flex-column mx-auto">
         @if ($preference != null)
 
-            {!! Form::model($preference, ['route' => ['preference.update', $preference], 'method' => 'put', 'files' => true, 'class' => 'my-3']) !!}
+            {!! Form::model($preference, ['route' => ['preference.update', $preference], 'method' => 'put', 'files' => true, 'class' => 'my-3', 'id' => 'form-update']) !!}
                 {!! Form::label('main_title', 'Title') !!}
                 <small class="h6 d-inline text-danger">*</small>
                 <x-adminlte-input name="main_title" enable-old-support value="{{$preference->main_title}}" placeholder="Main Title"/>
@@ -21,29 +27,50 @@
                 {!! Form::label('nav_subtitle', 'Nav Subtitle') !!}
                 <small class="h6 d-inline text-danger">*</small>
                 <x-adminlte-input name="nav_subtitle" enable-old-support value="{{$preference->nav_subtitle}}" placeholder="Nav Subtitle"/>
-                <div class="d-flex justify-content-between">
-                    <div class="d-flex flex-column">
-                        {!! Form::label('main_video', 'Video') !!}
-                        <x-adminlte-input-file id="input_video" enable-old-support name="main_video" igroup-size="sm" placeholder="Choose a video...">
-                            <x-slot name="prependSlot">
-                                <div class="input-group-text bg-lightblue">
-                                    <i class="fas fa-upload"></i>
-                                </div>
-                            </x-slot>
-                        </x-adminlte-input-file>
-                        <x-adminlte-button label="Update" class="px-5 mr-auto" type="submit" theme="success" />
-                    </div>
-                    @if ($preference->main_video != null)
-                        <video id="video" src="{{Storage::url($preference->main_video)}}" width="200"></video>
-                    @else
-                        <video id="video" src="" width="200"></video>
-                    @endif
-                </div>
             {!! Form::close() !!}
+
+            @if ($preference->main_video != null)
+                {!! Form::label('file', 'Video') !!}
+                <form action="{{route('preference.videoUpdate', $preference)}}" method="POST" class="dropzone" id="my-great-dropzone">
+                    @csrf
+                </form>
+
+                <script>
+                    Dropzone.options.myGreatDropzone = {
+                        method: 'put',
+                        maxFilesize: 50,
+                        acceptedFiles: 'video/*',
+                        maxFiles: 1
+                    };
+                </script>
+
+            @else
+                {!! Form::label('file', 'Video') !!}
+                <form action="{{route('preference.videoStore')}}" method="POST" class="dropzone" id="my-great-dropzone">
+                    @csrf
+                </form>
+
+                <script>
+                    Dropzone.options.myGreatDropzone = {
+                        maxFilesize: 50,
+                        acceptedFiles: 'video/*',
+                        maxFiles: 1
+                    };
+                </script>
+
+            @endif
+            <x-adminlte-button label="Update" class="px-5 mt-3 mr-auto" type="submit" theme="success" id="btn-update" />
+            <script>
+                const btnUpdate = document.getElementById('btn-update');
+                const formUpdate = document.getElementById('form-update');
+                btnUpdate.addEventListener('click', function (e){
+                    formUpdate.submit();
+                });
+            </script>
 
         @else
 
-            {!! Form::open(['route' => 'preference.store', 'files' => true, 'class' => 'my-3']) !!}
+            {!! Form::open(['route' => 'preference.store', 'files' => true, 'class' => 'my-3', 'id' => 'form-create']) !!}
                 {!! Form::label('main_title', 'Title') !!}
                 <small class="h6 d-inline text-danger">*</small>
                 <x-adminlte-input name="main_title" enable-old-support placeholder="Main Title"/>
@@ -53,24 +80,28 @@
                 {!! Form::label('nav_subtitle', 'Nav Subtitle') !!}
                 <small class="h6 d-inline text-danger">*</small>
                 <x-adminlte-input name="nav_subtitle" enable-old-support placeholder="Nav Subtitle"/>
-                <div class="d-flex justify-content-between">
-                    <div class="d-flex flex-column">
-                        <div>
-                            {!! Form::label('main_video', 'Video') !!}
-                            <small class="d-inline h6 text-danger">*</small>
-                        </div>
-                        <x-adminlte-input-file id="input_video" enable-old-support name="main_video" igroup-size="sm" placeholder="Choose a video...">
-                            <x-slot name="prependSlot">
-                                <div class="input-group-text bg-lightblue">
-                                    <i class="fas fa-upload"></i>
-                                </div>
-                            </x-slot>
-                        </x-adminlte-input-file>
-                        <x-adminlte-button label="Confirm" class="px-5 mr-auto" type="submit" theme="success" icon="fas fa-key"/>
-                    </div>
-                    <video id="video" src="" width="200"></video>
-                </div>
-            {!! Form::close() !!}
+                {!! Form::close() !!}
+
+                {!! Form::label('file', 'Video') !!}
+                <form action="{{route('preference.videoStore')}}" method="POST" class="dropzone" id="my-great-dropzone">
+                    @csrf
+                </form>
+
+                <script>
+                    Dropzone.options.myGreatDropzone = {
+                        maxFilesize: 50,
+                        acceptedFiles: 'video/*',
+                        maxFiles: 1
+                    };
+                </script>
+                <x-adminlte-button label="Create" class="px-5 mt-3 mr-auto" type="submit" theme="success" id="btn-create" />
+                <script>
+                    const btnCreate = document.getElementById('btn-create');
+                    const formCreate = document.getElementById('form-create');
+                    btnCreate.addEventListener('click', function (e){
+                        formCreate.submit();
+                    });
+                </script>
 
         @endif
     </div>
@@ -156,6 +187,8 @@
 @section('js')
     <!-- TODO: cuando ejecute npm run dev quitar el cdn -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {{-- Dropzone cdn --}}
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 
 
     <script>

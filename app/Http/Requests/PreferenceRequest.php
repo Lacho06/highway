@@ -25,17 +25,7 @@ class PreferenceRequest extends FormRequest
     {
         return [
             'main_title' => 'required',
-            'main_subtitle' => 'required',
-            'main_video' => 'file|max:51200|min:1|mimes:mp4,mkv,avi,mpg'
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'main_video.max' => "Maximum file size to upload is 50MB.",
-            'main_video.file' => "The main video must be a file",
-            'main_video.required' => "The video field cannot be empty"
+            'main_subtitle' => 'required'
         ];
     }
 }

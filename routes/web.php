@@ -43,6 +43,12 @@ Route::delete('admin/mail/{mail}', [MailController::class, 'destroy'])->middlewa
 
 Route::get('admin', [AdminController::class, 'index'])->middleware('auth')->name('admin.index');
 
+Route::get('admin/preference/video', [AdminController::class, 'notFound'])->middleware('verbHttp')->middleware('auth');
+
+Route::post('admin/preference/video', [PreferenceController::class, 'videoStore'])->middleware('auth')->name('preference.videoStore');
+
+Route::put('admin/preference/video/{preference}', [PreferenceController::class, 'videoUpdate'])->middleware('auth')->name('preference.videoUpdate');
+
 Route::get('admin/preference', [AdminController::class, 'notFound'])->middleware('verbHttp')->middleware('auth');
 
 Route::post('admin/preference', [PreferenceController::class, 'store'])->middleware('auth')->name('preference.store');
