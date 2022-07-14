@@ -30,8 +30,8 @@ class PostController extends Controller
 
     public function index(){
         $posts = Post::paginate(5);
-
-        return view('post.index', compact('posts'));
+        $data = Post::all()->first();
+        return view('post.index', compact('posts', 'data'));
     }
 
 

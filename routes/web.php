@@ -27,6 +27,10 @@ Route::get('blog', [PostController::class, 'viewBlog'])->name('blog');
 
 Route::get('single-post/{id}', [PostController::class, 'viewSinglePost'])->name('single-post');
 
+Route::get('admin/changePassword', [AdminController::class, 'notFound'])->middleware('verbHttp')->middleware('auth');
+
+Route::post('admin/changePassword', [AdminController::class, 'changePassword'])->middleware('auth')->name('admin.changePassword');
+
 Route::get('admin/mail/deleteSelected', [AdminController::class, 'notFound'])->middleware('verbHttp')->middleware('auth');
 
 Route::post('admin/mail/deleteSelected', [MailController::class, 'deleteSelected'])->middleware('auth')->name('mail.deleteSelected');

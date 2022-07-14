@@ -11,6 +11,30 @@
     type="text/css"
     />
 
+    <h2>Change Password</h2>
+    <hr>
+
+    {!! Form::open(['route' => 'admin.changePassword', 'id' => 'form-changePassword']) !!}
+        {!! Form::label('old_password', 'Old Password') !!}
+        <small class="h6 d-inline text-danger">*</small>
+        <x-adminlte-input name="old_password" enable-old-support  placeholder="Old Password"/>
+        {!! Form::label('new_password', 'New Password') !!}
+        <small class="h6 d-inline text-danger">*</small>
+        <x-adminlte-input name="new_password" enable-old-support  placeholder="New Password"/>
+        {!! Form::label('confirm_password', 'Confirm Password') !!}
+        <small class="h6 d-inline text-danger">*</small>
+        <x-adminlte-input name="confirm_password" enable-old-support  placeholder="Confirm Password"/>
+        <x-adminlte-button label="Change" class="px-5 mt-2 mb-5 mr-auto" type="submit" theme="success" id="btn-changePassword" />
+    {!! Form::close() !!}
+    <script>
+        const btnChangePassword = document.getElementById('btn-changePassword');
+        const formChangePassword = document.getElementById('form-changePassword');
+        btnChangePassword.addEventListener('click', function (e){
+            formChangePassword.submit();
+        });
+    </script>
+
+
     <h2>Preferences</h2>
     <hr>
 
@@ -80,7 +104,7 @@
                 {!! Form::label('nav_subtitle', 'Nav Subtitle') !!}
                 <small class="h6 d-inline text-danger">*</small>
                 <x-adminlte-input name="nav_subtitle" enable-old-support placeholder="Nav Subtitle"/>
-                {!! Form::close() !!}
+            {!! Form::close() !!}
 
                 {!! Form::label('file', 'Video') !!}
                 <form action="{{route('preference.videoStore')}}" method="POST" class="dropzone" id="my-great-dropzone">
@@ -249,6 +273,26 @@
 
     </script>
 
+
+    @if (session('customMessage') == 'Password Error')
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!'
+            })
+        </script>
+    @endif
+
+    @if (session('customMessage') == 'Password Changed')
+        <script>
+            Swal.fire(
+                'Updated!',
+                'Your password has been changed.',
+                'success'
+            )
+        </script>
+    @endif
 
     @if (session('customMessage') == 'Mail Deleted')
         <script>

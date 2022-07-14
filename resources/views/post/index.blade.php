@@ -19,8 +19,10 @@
             {{$posts->links()}}
         </div>
         <div>
-            <x-adminlte-button id="btnDeletePostsSelected" label="Delete Posts Selected" theme="warning" />
-            <x-adminlte-button id="btnDeleteAllPosts" label="Delete All Posts" theme="danger" />
+            @empty(!$data)
+                <x-adminlte-button id="btnDeletePostsSelected" label="Delete Posts Selected" theme="warning" />
+                <x-adminlte-button id="btnDeleteAllPosts" label="Delete All Posts" theme="danger" />
+            @endempty
             <form action="{{route('post.deleteAll')}}" method="post" class="d-none form-deleteAllPosts">
                 @csrf @method("DELETE")
                 <button type="submit" class="btn btn-xs btn-default text-danger mx-1 shadow" id="btn-delete" title="Delete All">
@@ -32,7 +34,7 @@
     <form action="{{route('post.deleteSelected')}}" method="post" id="form-delete-post">
         @csrf
         <x-adminlte-datatable id="table1" :heads="$heads">
-            @foreach($posts as $post)
+            @forelse($posts as $post)
                 <tr>
                     <td>
                         <input type="checkbox" value="{{$post->id}}" id="{{$post->id}}" name="postsSelected[]">
@@ -56,8 +58,13 @@
                             </a>
                         </nobr>
                     </td>
+                </tr>@empty
+                <tr>
+                    <td></td>
+                    <td>There are no posts to show</td>
+                    <td></td>
                 </tr>
-            @endforeach
+            @endforelse
         </x-adminlte-datatable>
     </form>
 
