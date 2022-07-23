@@ -11,6 +11,13 @@
     type="text/css"
     />
 
+    {{-- <script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"></script> --}}
+    {{-- Dropzone cdn --}}
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+
     <h2>Change Password</h2>
     <hr>
 
@@ -26,7 +33,7 @@
         <x-adminlte-input name="confirm_password" enable-old-support  placeholder="Confirm Password"/>
         <x-adminlte-button label="Change" class="px-5 mt-2 mb-5 mr-auto" type="submit" theme="success" id="btn-changePassword" />
     {!! Form::close() !!}
-    <script>
+    <script defer>
         const btnChangePassword = document.getElementById('btn-changePassword');
         const formChangePassword = document.getElementById('form-changePassword');
         btnChangePassword.addEventListener('click', function (e){
@@ -59,7 +66,7 @@
                     @csrf
                 </form>
 
-                <script>
+                <script defer>
                     Dropzone.options.myGreatDropzone = {
                         method: 'put',
                         maxFilesize: 50,
@@ -74,7 +81,7 @@
                     @csrf
                 </form>
 
-                <script>
+                <script defer>
                     Dropzone.options.myGreatDropzone = {
                         maxFilesize: 50,
                         acceptedFiles: 'video/*',
@@ -84,7 +91,7 @@
 
             @endif
             <x-adminlte-button label="Update" class="px-5 mt-3 mr-auto" type="submit" theme="success" id="btn-update" />
-            <script>
+            <script defer>
                 const btnUpdate = document.getElementById('btn-update');
                 const formUpdate = document.getElementById('form-update');
                 btnUpdate.addEventListener('click', function (e){
@@ -111,7 +118,7 @@
                     @csrf
                 </form>
 
-                <script>
+                <script defer>
                     Dropzone.options.myGreatDropzone = {
                         maxFilesize: 50,
                         acceptedFiles: 'video/*',
@@ -119,7 +126,7 @@
                     };
                 </script>
                 <x-adminlte-button label="Create" class="px-5 mt-3 mr-auto" type="submit" theme="success" id="btn-create" />
-                <script>
+                <script defer>
                     const btnCreate = document.getElementById('btn-create');
                     const formCreate = document.getElementById('form-create');
                     btnCreate.addEventListener('click', function (e){
@@ -211,8 +218,6 @@
 @section('js')
     <!-- TODO: cuando ejecute npm run dev quitar el cdn -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    {{-- Dropzone cdn --}}
-    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 
 
     <script>
@@ -393,37 +398,5 @@
             )
         </script>
     @endif
-
-    <script>
-
-        const input_image = document.getElementById('input_image')
-        input_image.addEventListener('change', changeImage)
-
-        function changeImage(e){
-            const file = e.target.files[0]
-            const reader = new FileReader()
-            reader.onload = (e) => {
-                document.getElementById('image').setAttribute('src', e.target.result)
-            }
-            reader.readAsDataURL(file)
-        }
-
-    </script>
-
-
-    <script>
-
-        const input_video = document.getElementById('input_video')
-        input_video.addEventListener('change', changeVideo)
-        function changeVideo(e){
-            const file = e.target.files[0]
-            const reader = new FileReader()
-            reader.onload = (e) => {
-                document.getElementById('video').setAttribute('src', e.target.result)
-            }
-            reader.readAsDataURL(file)
-        }
-
-    </script>
 
 @stop
